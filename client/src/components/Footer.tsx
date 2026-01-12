@@ -49,9 +49,9 @@ export default function Footer() {
               Company
             </h4>
             <div className="text-gray-400 text-sm space-y-2">
-              <p><strong className="text-white">Legal Name:</strong><br />CC INNOVATIONS (OPC) PRIVATE LIMITED</p>
-              <p><strong className="text-white">CIN:</strong> U78100JH2023OPC021360</p>
-              <p><strong className="text-white">GST:</strong> 20AALCC3673P1ZB</p>
+              <p><strong className="text-white">Operated by:</strong><br />CC INNOVATIONS (OPC) PRIVATE LIMITED</p>
+              <p><strong className="text-white">CIN:</strong><br />U78100JH2023OPC021360</p>
+              <p><strong className="text-white">GST:</strong><br />20AALCC3673P1ZB</p>
             </div>
           </div>
         </div>
@@ -73,10 +73,11 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Copyright */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400">
-            <p>&copy; {currentYear} STATNIX. All rights reserved.</p>
-            <p>Premium Social Gaming Platform</p>
+          {/* Copyright & Company Details */}
+          <div className="border-t border-[#f7a600]/20 pt-6 text-center">
+            <p className="text-xs text-gray-400 leading-relaxed">
+              &copy; 2026 STATNIX. All rights reserved. | Operated by CC INNOVATIONS (OPC) PRIVATE LIMITED | CIN: U78100JH2023OPC021360 | GST: 20AALCC3673P1ZB
+            </p>
           </div>
         </div>
       </div>
