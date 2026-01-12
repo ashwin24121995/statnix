@@ -55,7 +55,7 @@ export default function Contact() {
         <section
           className="relative min-h-[40vh] flex items-center overflow-hidden"
           style={{
-            backgroundImage: "url('/images/contact-hero-bg.jpg')",
+            backgroundImage: "url('/images/contact-hero-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

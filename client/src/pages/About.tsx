@@ -19,7 +19,7 @@ export default function About() {
         <section
           className="relative min-h-[50vh] flex items-center overflow-hidden"
           style={{
-            backgroundImage: "url('/images/about-team-bg.jpg')",
+            backgroundImage: "url('/images/about-team-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundAttachment: "fixed"

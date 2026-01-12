@@ -49,7 +49,7 @@ export default function Home() {
         <section
           className="relative min-h-[90vh] flex items-center overflow-hidden"
           style={{
-            backgroundImage: "url('/images/hero-casino-bg.jpg')",
+            backgroundImage: "url('/images/hero-casino-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -144,7 +144,7 @@ export default function Home() {
         <section
           className="relative py-20 overflow-hidden"
           style={{
-            backgroundImage: "url('/images/why-play-bg.jpg')",
+            backgroundImage: "url('/images/why-play-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -226,7 +226,7 @@ export default function Home() {
         <section
           className="relative py-20 overflow-hidden"
           style={{
-            backgroundImage: "url('/images/why-play-bg.jpg')",
+            backgroundImage: "url('/images/why-play-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

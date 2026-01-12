@@ -10,7 +10,7 @@ export default function Terms() {
         <section
           className="relative min-h-[40vh] flex items-center overflow-hidden"
           style={{
-            backgroundImage: "url('/images/terms-legal-bg.jpg')",
+            backgroundImage: "url('/images/terms-legal-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundAttachment: "fixed"

@@ -171,7 +171,7 @@ export default function Play() {
         <section
           className="relative py-16 overflow-hidden"
           style={{
-            backgroundImage: "url('/images/hero-casino-bg.jpg')",
+            backgroundImage: "url('/images/hero-casino-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

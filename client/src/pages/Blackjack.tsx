@@ -190,7 +190,7 @@ export default function Blackjack() {
         <section
           className="relative min-h-[40vh] flex items-center overflow-hidden"
           style={{
-            backgroundImage: "url('/images/blackjack-game-bg.jpg')",
+            backgroundImage: "url('/images/blackjack-game-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

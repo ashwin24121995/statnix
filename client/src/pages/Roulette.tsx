@@ -102,7 +102,7 @@ export default function Roulette() {
         <section
           className="relative min-h-[40vh] flex items-center overflow-hidden"
           style={{
-            backgroundImage: "url('/images/roulette-game-bg.jpg')",
+            backgroundImage: "url('/images/roulette-game-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
