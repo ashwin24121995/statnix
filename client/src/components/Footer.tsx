@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <img src="/images/statnix-logo.png" alt="STATNIX" className="h-16 w-16 object-contain" />
+              <img src="/images/statnix-logo.webp" alt="STATNIX" className="h-16 w-16 object-contain" />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
               Premium social gaming platform offering free-to-play casino entertainment. No real money involved.

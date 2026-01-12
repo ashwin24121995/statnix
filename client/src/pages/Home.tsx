@@ -34,10 +34,10 @@ export default function Home() {
   ];
 
   const games = [
-    { name: "Premium Slots", image: "/images/game-slots-icon.png", limit: "Free Play", route: "/play" },
-    { name: "Roulette", image: "/images/game-roulette-icon.png", limit: "Free Play", route: "/roulette" },
-    { name: "Blackjack", image: "/images/game-cards-new.png", limit: "Free Play", route: "/blackjack" },
-    { name: "Lucky Spin", image: "/images/lucky-spin-icon.png", limit: "Free Play", route: "/play" },
+    { name: "Premium Slots", image: "/images/game-slots-icon.webp", limit: "Free Play", route: "/play" },
+    { name: "Roulette", image: "/images/game-roulette-icon.webp", limit: "Free Play", route: "/roulette" },
+    { name: "Blackjack", image: "/images/game-cards-new.webp", limit: "Free Play", route: "/blackjack" },
+    { name: "Lucky Spin", image: "/images/lucky-spin-icon.webp", limit: "Free Play", route: "/play" },
   ];
 
   return (
@@ -86,7 +86,7 @@ export default function Home() {
 
               <div className="hidden lg:flex justify-center">
                 <img
-                  src="/images/casino-floating-elements.png"
+                  src="/images/casino-floating-elements.webp"
                   alt="Casino Elements"
                   className="max-w-lg w-full object-contain animate-float"
                 />
