@@ -1,19 +1,14 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { RotateCcw, Volume2, VolumeX } from "lucide-react";
 
 /**
- * Premium Casino Game Design
- * - Realistic 3D-style slot machine interface
- * - Gold and purple premium aesthetic
- * - Smooth spinning animations with particle effects
- * - Sound effects and background music
+ * Play Page - Casinous Template Design
+ * Deep purple background (#1a0a2e) with golden yellow (#f7a600) accents
  */
 
-const SYMBOLS = ["🎰", "💎", "👑", "🏆", "⭐", "🎯"];
+const SYMBOLS = ["🎰", "💎", "👑", "🏆", "⭐", "🎯", "7️⃣", "🍀"];
 const INITIAL_CREDITS = 1000;
 const PAYOUT_MULTIPLIERS: Record<string, number> = {
   "🎰": 2,
@@ -22,13 +17,19 @@ const PAYOUT_MULTIPLIERS: Record<string, number> = {
   "🏆": 5,
   "⭐": 7.5,
   "🎯": 10,
+  "7️⃣": 15,
+  "🍀": 20,
 };
 
 export default function Play() {
   const [credits, setCredits] = useState(INITIAL_CREDITS);
   const [bet, setBet] = useState(10);
   const [customBet, setCustomBet] = useState("");
-  const [reels, setReels] = useState<string[][]>([[], [], []]);
+  const [reels, setReels] = useState<string[][]>([
+    ["🎰", "💎", "👑"],
+    ["🏆", "⭐", "🎯"],
+    ["7️⃣", "🍀", "🎰"],
+  ]);
   const [isSpinning, setIsSpinning] = useState(false);
   const [status, setStatus] = useState("Ready to play");
   const [lastWin, setLastWin] = useState(0);
@@ -36,14 +37,12 @@ export default function Play() {
   const [isMuted, setIsMuted] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
 
-  // Initialize audio context
   useEffect(() => {
     if (typeof window !== "undefined" && !audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
   }, []);
 
-  // Play sound effect
   const playSound = (frequency: number, duration: number, type: "sine" | "square" = "sine") => {
     if (isMuted || !audioContextRef.current) return;
 
@@ -57,24 +56,22 @@ export default function Play() {
     oscillator.frequency.value = frequency;
     oscillator.type = type;
 
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
 
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + duration);
   };
 
-  // Play spin sound
   const playSpinSound = () => {
-    playSound(800, 0.1, "square");
-    playSound(600, 0.15, "sine");
+    playSound(600, 0.08, "square");
   };
 
-  // Play win sound
   const playWinSound = () => {
     playSound(800, 0.1);
     setTimeout(() => playSound(1000, 0.1), 100);
-    setTimeout(() => playSound(1200, 0.2), 200);
+    setTimeout(() => playSound(1200, 0.15), 200);
+    setTimeout(() => playSound(1400, 0.2), 300);
   };
 
   const generateReel = () => {
@@ -86,25 +83,18 @@ export default function Play() {
   };
 
   const calculateWin = (reels: string[][]) => {
-    const firstReel = reels[0];
-    const secondReel = reels[1];
-    const thirdReel = reels[2];
+    const middleRow = [reels[0][1], reels[1][1], reels[2][1]];
 
     let winAmount = 0;
 
-    if (
-      firstReel[1] === secondReel[1] &&
-      secondReel[1] === thirdReel[1]
-    ) {
-      const symbol = firstReel[1];
+    if (middleRow[0] === middleRow[1] && middleRow[1] === middleRow[2]) {
+      const symbol = middleRow[0];
       winAmount = bet * (PAYOUT_MULTIPLIERS[symbol] || 2);
-    } else if (firstReel[1] === secondReel[1]) {
-      winAmount = bet * 1.5;
-    } else if (secondReel[1] === thirdReel[1]) {
+    } else if (middleRow[0] === middleRow[1] || middleRow[1] === middleRow[2]) {
       winAmount = bet * 1.5;
     }
 
-    return winAmount;
+    return Math.floor(winAmount);
   };
 
   const spin = () => {
@@ -118,14 +108,14 @@ export default function Play() {
     setLastWin(0);
 
     setCredits((prev) => prev - bet);
-    playSpinSound();
 
     let spinCount = 0;
     const spinInterval = setInterval(() => {
       setReels([generateReel(), generateReel(), generateReel()]);
+      playSpinSound();
       spinCount++;
 
-      if (spinCount > 20) {
+      if (spinCount > 15) {
         clearInterval(spinInterval);
 
         const finalReels = [generateReel(), generateReel(), generateReel()];
@@ -144,7 +134,7 @@ export default function Play() {
 
         setIsSpinning(false);
       }
-    }, 80);
+    }, 100);
   };
 
   const handleBetChange = (newBet: number) => {
@@ -162,163 +152,161 @@ export default function Play() {
 
   const reset = () => {
     setCredits(INITIAL_CREDITS);
-    setReels([[], [], []]);
+    setReels([
+      ["🎰", "💎", "👑"],
+      ["🏆", "⭐", "🎯"],
+      ["7️⃣", "🍀", "🎰"],
+    ]);
     setStatus("Ready to play");
     setLastWin(0);
     setBet(10);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#1a0a2e' }}>
       <Header />
 
       <main className="flex-1">
         {/* Game Header */}
         <section
-          className="relative py-12 overflow-hidden"
+          className="relative py-16 overflow-hidden"
           style={{
-            backgroundImage: "url('/images/game-interface-bg.jpg')",
+            backgroundImage: "url('/images/hero-casino-bg.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background/40" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(26, 10, 46, 0.9), rgba(26, 10, 46, 0.7))' }} />
           <div className="container relative z-10 flex justify-between items-center">
             <div>
-              <h1 className="font-display font-bold text-4xl md:text-5xl text-foreground mb-2">
-                Premium Casino Slots
+              <h1 className="heading-casino text-4xl md:text-5xl mb-2">
+                <span style={{ color: '#f7a600' }}>Premium</span>
+                <span className="text-white"> Slots</span>
               </h1>
-              <p className="text-muted-foreground text-lg">
+              <p className="text-gray-400 text-lg">
                 Experience the thrill of luxury gaming
               </p>
             </div>
             <button
               onClick={() => setIsMuted(!isMuted)}
-              className="p-3 bg-accent/20 hover:bg-accent/30 rounded-lg transition-colors"
+              className="p-3 rounded-lg transition-colors"
+              style={{ backgroundColor: 'rgba(247, 166, 0, 0.2)', border: '2px dashed #f7a600' }}
             >
               {isMuted ? (
-                <VolumeX className="w-6 h-6 text-accent" />
+                <VolumeX className="w-6 h-6" style={{ color: '#f7a600' }} />
               ) : (
-                <Volume2 className="w-6 h-6 text-accent" />
+                <Volume2 className="w-6 h-6" style={{ color: '#f7a600' }} />
               )}
             </button>
           </div>
         </section>
 
         {/* Game Container */}
-        <section className="py-12 bg-background">
-          <div className="container max-w-5xl">
+        <section className="py-12" style={{ backgroundColor: '#1a0a2e' }}>
+          <div className="container max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Game Board */}
               <div className="lg:col-span-2">
-                <Card className="bg-card border-2 border-accent/50 p-8 shadow-2xl">
+                <div className="card-casino p-8">
                   {/* Credits Display */}
-                  <div className="mb-8 p-6 bg-gradient-to-r from-accent/20 to-accent/10 rounded-lg border-2 border-accent">
-                    <p className="text-muted-foreground text-sm mb-2 uppercase tracking-widest">Your Balance</p>
-                    <p className="font-display font-bold text-4xl text-accent">
-                      {credits}
+                  <div className="mb-8 p-6 rounded-lg" style={{ backgroundColor: '#1a0a2e', border: '2px solid #f7a600' }}>
+                    <p className="text-gray-400 text-sm mb-1 uppercase tracking-widest">Your Balance</p>
+                    <p className="font-display font-bold text-4xl" style={{ color: '#f7a600' }}>
+                      {credits.toLocaleString()}
                     </p>
                   </div>
 
                   {/* Slot Machine */}
-                  <div className="mb-8 p-8 bg-gradient-to-b from-background to-card rounded-lg border-4 border-accent/30 relative overflow-hidden">
-                    {/* Decorative top */}
-                    <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-accent via-accent/50 to-accent" />
+                  <div className="mb-8 p-6 rounded-lg relative overflow-hidden" style={{ backgroundColor: '#1a0a2e', border: '2px dashed #f7a600' }}>
+                    {/* Decorative top bar */}
+                    <div className="absolute top-0 left-0 right-0 h-2" style={{ background: 'linear-gradient(to right, #f7a600, rgba(247, 166, 0, 0.5), #f7a600)' }} />
 
                     {/* Game Grid */}
-                    <div className="grid grid-cols-3 gap-4 mb-8">
+                    <div className="grid grid-cols-3 gap-4 mb-6 mt-4">
                       {[0, 1, 2].map((reelIdx) => (
                         <div
                           key={reelIdx}
-                          className={`relative aspect-square bg-gradient-to-b from-background to-card border-4 border-accent rounded-lg flex flex-col items-center justify-center p-2 overflow-hidden ${
-                            isSpinning ? "animate-pulse" : ""
-                          }`}
+                          className={`relative rounded-lg p-4 ${isSpinning ? "animate-pulse" : ""}`}
+                          style={{ backgroundColor: '#2d1b4e', border: '2px dashed rgba(247, 166, 0, 0.5)' }}
                         >
-                          {/* Reel items */}
-                          <div className="flex flex-col items-center justify-center h-full gap-2">
+                          <div className="flex flex-col items-center justify-center gap-2">
                             {reels[reelIdx]?.map((symbol, idx) => (
                               <div
                                 key={idx}
-                                className={`text-5xl transition-all duration-100 ${
-                                  idx === 1 ? "scale-125 text-accent" : "opacity-50"
+                                className={`text-4xl md:text-5xl transition-all duration-100 ${
+                                  idx === 1
+                                    ? "scale-125 rounded-lg p-2"
+                                    : "opacity-40"
                                 }`}
+                                style={idx === 1 ? { backgroundColor: 'rgba(247, 166, 0, 0.2)' } : {}}
                               >
                                 {symbol}
                               </div>
                             ))}
                           </div>
-
-                          {/* Center highlight */}
-                          {reels[reelIdx]?.[1] && (
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                              <div className="w-24 h-24 border-4 border-accent rounded-lg shadow-lg shadow-accent/50" />
-                            </div>
-                          )}
-
-                          {/* Shine effect */}
-                          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
                         </div>
                       ))}
                     </div>
 
+                    {/* Win Line Indicator */}
+                    <div className="absolute left-4 right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                      <div className="h-0.5" style={{ backgroundColor: 'rgba(247, 166, 0, 0.3)' }} />
+                    </div>
+
                     {/* Status Display */}
-                    <div className="p-4 bg-background rounded-lg border-2 border-accent/30 text-center mb-6">
-                      <p className="text-foreground font-display font-bold text-lg">{status}</p>
+                    <div className="p-4 rounded-lg text-center" style={{ backgroundColor: '#2d1b4e', border: '1px solid rgba(247, 166, 0, 0.3)' }}>
+                      <p className="text-white font-display font-bold text-lg">{status}</p>
                       {lastWin > 0 && (
-                        <p className="text-accent font-display font-bold text-2xl mt-2 animate-bounce">
+                        <p className="font-display font-bold text-3xl mt-2 animate-bounce" style={{ color: '#f7a600' }}>
                           +{lastWin} CREDITS!
                         </p>
                       )}
                     </div>
 
-                    {/* Decorative bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-accent via-accent/50 to-accent" />
+                    {/* Decorative bottom bar */}
+                    <div className="absolute bottom-0 left-0 right-0 h-2" style={{ background: 'linear-gradient(to right, #f7a600, rgba(247, 166, 0, 0.5), #f7a600)' }} />
                   </div>
 
                   {/* Spin Button */}
-                  <Button
+                  <button
                     onClick={spin}
                     disabled={isSpinning || credits < bet}
-                    size="lg"
-                    className="w-full bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent text-primary-foreground font-display font-bold text-xl py-8 mb-4 rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
+                    className="w-full btn-casino text-xl py-6 mb-4 glow-gold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSpinning ? "🎰 SPINNING..." : "🎰 SPIN NOW"}
-                  </Button>
+                    {isSpinning ? "SPINNING..." : "SPIN NOW"}
+                  </button>
 
-                  <Button
+                  <button
                     onClick={reset}
-                    variant="outline"
-                    size="sm"
-                    className="w-full border-accent text-accent hover:bg-accent/10"
+                    className="w-full btn-casino-outline text-sm py-3 flex items-center justify-center gap-2"
                   >
-                    <RotateCcw className="w-4 h-4 mr-2" />
+                    <RotateCcw className="w-4 h-4" />
                     Reset Game
-                  </Button>
-                </Card>
+                  </button>
+                </div>
               </div>
 
               {/* Controls Sidebar */}
               <div className="space-y-6">
                 {/* Bet Selection */}
-                <Card className="bg-card border-2 border-accent/30 p-6">
-                  <h3 className="font-display font-bold text-lg mb-4 text-foreground uppercase tracking-wider">
+                <div className="card-casino">
+                  <h3 className="font-display font-bold text-lg mb-4 uppercase tracking-wider" style={{ color: '#f7a600' }}>
                     Place Your Bet
                   </h3>
 
                   <div className="space-y-2 mb-4">
                     {[5, 10, 50, 100].map((amount) => (
-                      <Button
+                      <button
                         key={amount}
                         onClick={() => handleBetChange(amount)}
-                        variant={bet === amount ? "default" : "outline"}
-                        className={`w-full font-semibold ${
+                        className={`w-full py-3 rounded-md font-semibold transition-all ${
                           bet === amount
-                            ? "bg-accent text-primary-foreground border-accent"
-                            : "border-accent/50 text-accent hover:bg-accent/10"
+                            ? "btn-casino"
+                            : "btn-casino-outline"
                         }`}
                       >
                         {amount} Credits
-                      </Button>
+                      </button>
                     ))}
                   </div>
 
@@ -329,67 +317,72 @@ export default function Play() {
                       value={customBet}
                       onChange={(e) => setCustomBet(e.target.value)}
                       placeholder="Custom amount"
-                      className="w-full px-3 py-2 bg-background border-2 border-accent/30 rounded text-foreground placeholder-muted-foreground text-sm focus:border-accent focus:outline-none"
+                      className="w-full px-4 py-3 rounded-md text-white placeholder-gray-500 text-sm focus:outline-none"
+                      style={{ backgroundColor: '#1a0a2e', border: '2px dashed rgba(247, 166, 0, 0.3)' }}
                     />
-                    <Button
+                    <button
                       onClick={handleCustomBet}
-                      variant="outline"
-                      className="w-full border-accent/50 text-accent hover:bg-accent/10"
+                      className="w-full btn-casino-outline text-sm py-3"
                     >
-                      Set Custom
-                    </Button>
+                      Set Custom Bet
+                    </button>
                   </div>
 
-                  <div className="mt-4 p-4 bg-gradient-to-r from-accent/20 to-accent/10 rounded border-2 border-accent/30">
-                    <p className="text-muted-foreground text-xs mb-1 uppercase tracking-widest">Current Bet</p>
-                    <p className="font-display font-bold text-3xl text-accent">{bet}</p>
+                  <div className="mt-4 p-4 rounded-lg" style={{ backgroundColor: '#1a0a2e', border: '2px solid #f7a600' }}>
+                    <p className="text-gray-400 text-xs mb-1 uppercase tracking-widest">Current Bet</p>
+                    <p className="font-display font-bold text-3xl" style={{ color: '#f7a600' }}>{bet}</p>
                   </div>
-                </Card>
+                </div>
 
                 {/* How to Play */}
-                <Card className="bg-card border-2 border-accent/30 p-6">
-                  <Button
+                <div className="card-casino">
+                  <button
                     onClick={() => setShowHowToPlay(!showHowToPlay)}
-                    variant="outline"
-                    className="w-full border-accent/50 text-accent hover:bg-accent/10 justify-start"
+                    className="w-full btn-casino-outline text-sm py-3"
                   >
                     ❓ How to Play
-                  </Button>
+                  </button>
 
                   {showHowToPlay && (
-                    <div className="mt-4 text-sm text-muted-foreground space-y-3">
+                    <div className="mt-4 text-sm text-gray-400 space-y-3">
                       <div>
-                        <p className="font-semibold text-foreground mb-1">1. Select Bet Amount</p>
+                        <p className="font-semibold mb-1" style={{ color: '#f7a600' }}>1. Select Bet Amount</p>
                         <p className="text-xs">Choose from preset amounts or enter a custom bet</p>
                       </div>
                       <div>
-                        <p className="font-semibold text-foreground mb-1">2. Click SPIN</p>
+                        <p className="font-semibold mb-1" style={{ color: '#f7a600' }}>2. Click SPIN</p>
                         <p className="text-xs">Watch the reels spin and hope for a match!</p>
                       </div>
                       <div>
-                        <p className="font-semibold text-foreground mb-1">3. Win Big</p>
-                        <p className="text-xs">Match symbols to multiply your bet</p>
+                        <p className="font-semibold mb-1" style={{ color: '#f7a600' }}>3. Win Big</p>
+                        <p className="text-xs">Match symbols in the middle row to multiply your bet</p>
                       </div>
-                      <div className="pt-3 border-t border-border">
-                        <p className="font-semibold text-foreground mb-2">Payouts:</p>
-                        <div className="text-xs space-y-1">
-                          <p>🎰 2x | 💎 2.5x | 👑 3x</p>
-                          <p>🏆 5x | ⭐ 7.5x | 🎯 10x</p>
+                      <div className="pt-3" style={{ borderTop: '1px solid rgba(247, 166, 0, 0.3)' }}>
+                        <p className="font-semibold mb-2" style={{ color: '#f7a600' }}>Payouts:</p>
+                        <div className="text-xs space-y-1 grid grid-cols-2 gap-1">
+                          <p>🎰 2x</p>
+                          <p>💎 2.5x</p>
+                          <p>👑 3x</p>
+                          <p>🏆 5x</p>
+                          <p>⭐ 7.5x</p>
+                          <p>🎯 10x</p>
+                          <p>7️⃣ 15x</p>
+                          <p>🍀 20x</p>
                         </div>
                       </div>
                     </div>
                   )}
-                </Card>
+                </div>
 
                 {/* Game Stats */}
-                <Card className="bg-gradient-to-br from-accent/20 to-accent/10 border-2 border-accent/30 p-6">
-                  <h4 className="font-display font-bold text-foreground mb-3 uppercase tracking-wider">Game Info</h4>
-                  <div className="text-sm text-muted-foreground space-y-2">
-                    <p><strong className="text-foreground">Status:</strong> {isSpinning ? "Spinning..." : "Ready"}</p>
-                    <p><strong className="text-foreground">Bet:</strong> {bet} credits</p>
-                    <p><strong className="text-foreground">Balance:</strong> {credits} credits</p>
+                <div className="card-casino" style={{ background: 'linear-gradient(to bottom right, rgba(247, 166, 0, 0.1), rgba(247, 166, 0, 0.05))' }}>
+                  <h4 className="font-display font-bold mb-3 uppercase tracking-wider text-sm" style={{ color: '#f7a600' }}>Game Info</h4>
+                  <div className="text-sm text-gray-400 space-y-2">
+                    <p><strong className="text-white">Status:</strong> {isSpinning ? "Spinning..." : "Ready"}</p>
+                    <p><strong className="text-white">Current Bet:</strong> {bet} credits</p>
+                    <p><strong className="text-white">Balance:</strong> {credits.toLocaleString()} credits</p>
                   </div>
-                </Card>
+                </div>
               </div>
             </div>
           </div>

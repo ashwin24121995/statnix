@@ -1,68 +1,66 @@
-import { Card } from "@/components/ui/card";
+import { Link } from "wouter";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CheckCircle } from "lucide-react";
 
 /**
- * Design Philosophy: Modern Sports Analytics
- * - Clean, information-focused layout
- * - Accent colors for key highlights
- * - Professional typography hierarchy
+ * About Page - Casinous Template Design
+ * Deep purple background (#1a0a2e) with golden yellow (#f7a600) accents
  */
 
 export default function About() {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#1a0a2e' }}>
       <Header />
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-16 bg-card border-b border-border">
+        <section className="py-16" style={{ backgroundColor: '#2d1b4e', borderBottom: '1px solid rgba(247, 166, 0, 0.3)' }}>
           <div className="container">
-            <h1 className="font-display font-bold text-5xl md:text-6xl mb-6 text-foreground">
-              About Play By Stats
+            <h1 className="heading-casino text-5xl md:text-6xl mb-6 text-white">
+              About <span style={{ color: '#f7a600' }}>Play By Stats</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl">
+            <p className="text-xl text-gray-400 max-w-3xl">
               We're dedicated to creating a safe, engaging, and fair gaming platform where players can enjoy entertainment without worry.
             </p>
           </div>
         </section>
 
         {/* Mission & Vision */}
-        <section className="py-16 bg-background">
+        <section className="py-16" style={{ backgroundColor: '#1a0a2e' }}>
           <div className="container">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
               {/* Mission */}
-              <Card className="bg-card border-border p-8">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+              <div className="card-casino p-8">
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(247, 166, 0, 0.2)' }}>
                   <span className="text-2xl">🎯</span>
                 </div>
-                <h2 className="font-display font-bold text-2xl mb-4 text-foreground">
+                <h2 className="font-display font-bold text-2xl mb-4 text-white">
                   Our Mission
                 </h2>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-gray-400 leading-relaxed">
                   To bring joy, fun, and excitement through engaging free-to-play games. We believe gaming should be accessible to everyone, safe, and focused on entertainment rather than financial risk.
                 </p>
-              </Card>
+              </div>
 
               {/* Vision */}
-              <Card className="bg-card border-border p-8">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+              <div className="card-casino p-8">
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(247, 166, 0, 0.2)' }}>
                   <span className="text-2xl">✨</span>
                 </div>
-                <h2 className="font-display font-bold text-2xl mb-4 text-foreground">
+                <h2 className="font-display font-bold text-2xl mb-4 text-white">
                   Our Vision
                 </h2>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-gray-400 leading-relaxed">
                   To offer a platform for unique, handcrafted casual games and skill-based experiences in a safe environment. We envision a global community of players who value fair play, respect, and enjoyment.
                 </p>
-              </Card>
+              </div>
             </div>
 
             {/* Core Values */}
-            <div className="bg-card border border-border rounded-lg p-8">
-              <h2 className="font-display font-bold text-3xl mb-8 text-foreground">
-                Our Core Values
+            <div className="card-casino p-8">
+              <h2 className="heading-casino text-3xl mb-8 text-white">
+                Our <span style={{ color: '#f7a600' }}>Core Values</span>
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -93,12 +91,12 @@ export default function About() {
                   },
                 ].map((value, idx) => (
                   <div key={idx} className="flex gap-4">
-                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                    <CheckCircle className="w-6 h-6 flex-shrink-0 mt-1" style={{ color: '#f7a600' }} />
                     <div>
-                      <h3 className="font-display font-bold text-foreground mb-1">
+                      <h3 className="font-display font-bold text-white mb-1">
                         {value.title}
                       </h3>
-                      <p className="text-muted-foreground text-sm">
+                      <p className="text-gray-400 text-sm">
                         {value.description}
                       </p>
                     </div>
@@ -110,10 +108,10 @@ export default function About() {
         </section>
 
         {/* What We Offer */}
-        <section className="py-16 bg-card border-y border-border">
+        <section className="py-16" style={{ backgroundColor: '#2d1b4e', borderTop: '1px solid rgba(247, 166, 0, 0.3)', borderBottom: '1px solid rgba(247, 166, 0, 0.3)' }}>
           <div className="container">
-            <h2 className="font-display font-bold text-3xl mb-12 text-foreground text-center">
-              What We Offer
+            <h2 className="heading-casino text-3xl mb-12 text-white text-center">
+              What We <span style={{ color: '#f7a600' }}>Offer</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -149,28 +147,28 @@ export default function About() {
                   icon: "🚀",
                 },
               ].map((offer, idx) => (
-                <Card key={idx} className="bg-background border-border p-6">
+                <div key={idx} className="card-casino p-6">
                   <div className="text-4xl mb-4">{offer.icon}</div>
-                  <h3 className="font-display font-bold text-lg mb-2 text-foreground">
+                  <h3 className="font-display font-bold text-lg mb-2 text-white">
                     {offer.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-gray-400 text-sm">
                     {offer.description}
                   </p>
-                </Card>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* Commitment Section */}
-        <section className="py-16 bg-background">
+        <section className="py-16" style={{ backgroundColor: '#1a0a2e' }}>
           <div className="container max-w-3xl">
-            <h2 className="font-display font-bold text-3xl mb-8 text-foreground">
-              Our Commitment to You
+            <h2 className="heading-casino text-3xl mb-8 text-white">
+              Our <span style={{ color: '#f7a600' }}>Commitment</span> to You
             </h2>
 
-            <div className="space-y-6 text-muted-foreground leading-relaxed">
+            <div className="space-y-6 text-gray-400 leading-relaxed">
               <p>
                 At Play By Stats, we're committed to providing a gaming experience that prioritizes fair play, user safety, privacy, and satisfaction. We understand that trust is earned through consistent, transparent actions.
               </p>
@@ -186,6 +184,14 @@ export default function About() {
               <p>
                 We're proud to be a responsible gaming platform. We provide resources and tools to help players enjoy gaming in a healthy way, and we're always available to support you.
               </p>
+            </div>
+
+            <div className="mt-12">
+              <Link href="/play">
+                <button className="btn-casino text-lg px-8 py-4">
+                  Start Playing Now
+                </button>
+              </Link>
             </div>
           </div>
         </section>

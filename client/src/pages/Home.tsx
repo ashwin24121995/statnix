@@ -1,156 +1,249 @@
 import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Gamepad2, Shield, Users, Zap } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Shield, Trophy, Zap, Users } from "lucide-react";
 
 /**
- * Design Philosophy: Modern Sports Analytics
- * - Deep Navy background with Teal accents
- * - Bold Poppins display font for headlines
- * - Asymmetric layouts with diagonal sections
- * - Smooth scroll animations and interactive elements
+ * Home Page - Casinous Template Design
+ * Deep purple background (#1a0a2e) with golden yellow (#f7a600) accents
+ * Dashed border cards, italic headings
  */
 
 export default function Home() {
+  const features = [
+    {
+      icon: Shield,
+      title: "Secure Gaming",
+      description: "Play with confidence in our safe and secure environment. No real money involved.",
+    },
+    {
+      icon: Trophy,
+      title: "Win Big",
+      description: "Experience the thrill of winning with our exciting slot machine games.",
+    },
+    {
+      icon: Zap,
+      title: "Instant Play",
+      description: "No downloads required. Start playing instantly in your browser.",
+    },
+    {
+      icon: Users,
+      title: "Community",
+      description: "Join thousands of players in our thriving gaming community.",
+    },
+  ];
+
+  const games = [
+    { name: "Premium Slots", image: "/images/game-slots-icon.png", limit: "Free Play" },
+    { name: "Roulette", image: "/images/game-roulette-icon.png", limit: "Free Play" },
+    { name: "Card Games", image: "/images/game-cards-icon.png", limit: "Free Play" },
+    { name: "Lucky Spin", image: "/images/slots-machine.png", limit: "Free Play" },
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#1a0a2e' }}>
       <Header />
 
       <main className="flex-1">
         {/* Hero Section */}
         <section
-          className="relative min-h-screen flex items-center justify-center overflow-hidden"
+          className="relative min-h-[90vh] flex items-center overflow-hidden"
           style={{
-            backgroundImage: "url('/images/premium-hero-bg.jpg')",
+            backgroundImage: "url('/images/hero-casino-bg.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/50" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(26, 10, 46, 0.95), rgba(26, 10, 46, 0.7), rgba(26, 10, 46, 0.4))' }} />
 
           <div className="container relative z-10 py-20">
-            <div className="max-w-2xl">
-              <div className="mb-6 inline-block">
-                <span className="text-accent font-display font-bold text-sm tracking-widest uppercase">
-                  Welcome to Play By Stats
-                </span>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h1 className="heading-casino text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight">
+                  <span className="text-white">Play </span>
+                  <span style={{ color: '#f7a600' }}>Premium Casino</span>
+                  <br />
+                  <span className="text-white">& Win Big</span>
+                </h1>
+
+                <p className="text-gray-400 mb-8 max-w-xl leading-relaxed text-lg">
+                  Experience the ultimate casino entertainment with stunning graphics, immersive gameplay, and authentic casino atmosphere. No real money involved - just pure fun!
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link href="/play">
+                    <button className="btn-casino text-lg px-8 py-4">
+                      Play Now
+                    </button>
+                  </Link>
+                  <Link href="/about">
+                    <button className="btn-casino-outline text-lg px-8 py-4">
+                      Know More
+                    </button>
+                  </Link>
+                </div>
               </div>
 
-              <h1 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl mb-6 text-accent leading-tight drop-shadow-lg">
-                Premium Casino Experience
-              </h1>
-
-              <p className="text-lg md:text-xl text-foreground mb-8 max-w-xl leading-relaxed">
-                Experience the thrill of luxury gaming with stunning graphics, immersive sound, and authentic casino gameplay. Free-to-play, no real money involved.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/play">
-                  <Button
-                    size="lg"
-                    className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8"
-                  >
-                    Start Playing Now
-                  </Button>
-                </Link>
-                <Link href="/about">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-accent text-accent hover:bg-accent/10 font-semibold px-8"
-                  >
-                    Learn More
-                  </Button>
-                </Link>
+              <div className="hidden lg:flex justify-center">
+                <img
+                  src="/images/casino-floating-elements.png"
+                  alt="Casino Elements"
+                  className="max-w-lg w-full object-contain animate-float"
+                />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section */}
-        <section className="py-20 bg-background">
+        {/* Games Section */}
+        <section className="py-20" style={{ backgroundColor: '#1a0a2e' }}>
           <div className="container">
             <div className="text-center mb-16">
-              <h2 className="font-display font-bold text-4xl md:text-5xl mb-4 text-foreground">
-                Why Choose Play By Stats?
+              <h2 className="heading-casino text-4xl md:text-5xl mb-4">
+                <span style={{ color: '#f7a600' }}>Top Awesome</span>
+                <br />
+                <span className="text-white">Games</span>
               </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                We're committed to providing the best gaming experience with safety, fairness, and community at our core.
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                Experience the thrill of premium casino games. Free-to-play entertainment with stunning visuals and authentic gameplay.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Feature 1 */}
-              <Card className="bg-card border-border p-6 hover:border-accent transition-colors group">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors">
-                  <Gamepad2 className="w-6 h-6 text-accent" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {games.map((game, idx) => (
+                <div
+                  key={idx}
+                  className="card-casino group hover:scale-105 transition-all duration-300"
+                >
+                  <div className="aspect-square rounded-lg mb-4 flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'rgba(26, 10, 46, 0.5)' }}>
+                    <img
+                      src={game.image}
+                      alt={game.name}
+                      className="w-3/4 h-3/4 object-contain group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                  <h3 className="font-display font-bold text-xl text-white mb-2">
+                    {game.name}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-1 uppercase tracking-wider">
+                    Play Limit
+                  </p>
+                  <p className="font-semibold mb-4" style={{ color: '#f7a600' }}>{game.limit}</p>
+                  <Link href="/play">
+                    <button className="btn-casino-outline w-full text-sm py-3">
+                      Play Now
+                    </button>
+                  </Link>
                 </div>
-                <h3 className="font-display font-bold text-lg mb-2 text-foreground">Engaging Games</h3>
-                <p className="text-muted-foreground text-sm">
-                  Enjoy a variety of free-to-play games designed for entertainment and skill development.
-                </p>
-              </Card>
+              ))}
+            </div>
+          </div>
+        </section>
 
-              {/* Feature 2 */}
-              <Card className="bg-card border-border p-6 hover:border-accent transition-colors group">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors">
-                  <Shield className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="font-display font-bold text-lg mb-2 text-foreground">Safe & Secure</h3>
-                <p className="text-muted-foreground text-sm">
-                  Your privacy and security are our top priorities. No real-money gambling, just pure fun.
+        {/* Why Play Section */}
+        <section className="py-20" style={{ backgroundColor: '#2d1b4e' }}>
+          <div className="container">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <h2 className="heading-casino text-4xl md:text-5xl mb-6">
+                  <span style={{ color: '#f7a600' }}>Why Play Our</span>
+                  <br />
+                  <span className="text-white">Casino</span>
+                </h2>
+                <p className="text-gray-400 mb-8 leading-relaxed">
+                  Play By Stats offers a premium social gaming experience with no real money involved. Enjoy authentic casino entertainment in a safe, secure environment designed for pure fun and excitement.
                 </p>
-              </Card>
+                <Link href="/play">
+                  <button className="btn-casino">
+                    Start Playing
+                  </button>
+                </Link>
+              </div>
 
-              {/* Feature 3 */}
-              <Card className="bg-card border-border p-6 hover:border-accent transition-colors group">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors">
-                  <Users className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="font-display font-bold text-lg mb-2 text-foreground">Community Focused</h3>
-                <p className="text-muted-foreground text-sm">
-                  Connect with players worldwide in a respectful and inclusive gaming environment.
-                </p>
-              </Card>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {features.map((feature, idx) => (
+                  <div key={idx} className="card-casino">
+                    <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(247, 166, 0, 0.2)' }}>
+                      <feature.icon className="w-7 h-7" style={{ color: '#f7a600' }} />
+                    </div>
+                    <h3 className="font-display font-bold text-lg text-white mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm">
+                      {feature.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-              {/* Feature 4 */}
-              <Card className="bg-card border-border p-6 hover:border-accent transition-colors group">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors">
-                  <Zap className="w-6 h-6 text-accent" />
+        {/* How It Works Section */}
+        <section className="py-20" style={{ backgroundColor: '#1a0a2e' }}>
+          <div className="container">
+            <div className="text-center mb-16">
+              <h2 className="heading-casino text-4xl md:text-5xl mb-4">
+                <span className="text-white">How It </span>
+                <span style={{ color: '#f7a600' }}>Works</span>
+              </h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                Getting started is easy. Follow these simple steps to begin your gaming adventure.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { step: "01", title: "Visit Our Platform", desc: "Access Play By Stats from any device with a web browser." },
+                { step: "02", title: "Choose Your Game", desc: "Select from our collection of premium casino games." },
+                { step: "03", title: "Play & Enjoy", desc: "Start playing instantly and experience the thrill!" },
+              ].map((item, idx) => (
+                <div key={idx} className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#f7a600' }}>
+                    <span className="font-display font-bold text-2xl" style={{ color: '#1a0a2e' }}>{item.step}</span>
+                  </div>
+                  <h3 className="font-display font-bold text-xl text-white mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-400">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="font-display font-bold text-lg mb-2 text-foreground">Fair Play</h3>
-                <p className="text-muted-foreground text-sm">
-                  Transparent rules and fair mechanics ensure every player has an equal chance to win.
-                </p>
-              </Card>
+              ))}
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-card border-y border-border">
+        <section className="py-20" style={{ background: 'linear-gradient(to right, rgba(247, 166, 0, 0.1), #2d1b4e, rgba(247, 166, 0, 0.1))' }}>
           <div className="container text-center">
-            <h2 className="font-display font-bold text-4xl md:text-5xl mb-6 text-foreground">
-              Ready to Play?
+            <h2 className="heading-casino text-4xl md:text-5xl mb-6">
+              <span style={{ color: '#f7a600' }}>Ready to </span>
+              <span className="text-white">Play?</span>
             </h2>
-            <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-              Join our community of gaming enthusiasts and start your adventure today. It's free, it's fun, and it's waiting for you.
+            <p className="text-gray-400 max-w-2xl mx-auto mb-8">
+              Join thousands of players enjoying our premium casino games. No downloads, no registration required - just instant fun!
             </p>
             <Link href="/play">
-              <Button
-                size="lg"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-10"
-              >
-                Play Now
-              </Button>
+              <button className="btn-casino text-lg px-10 py-4 glow-gold">
+                Start Playing Now
+              </button>
             </Link>
           </div>
         </section>
       </main>
 
       <Footer />
+
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+          animation: float 4s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }

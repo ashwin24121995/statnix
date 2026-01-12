@@ -1,42 +1,41 @@
-import { Card } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AlertCircle } from "lucide-react";
 
 export default function CommunityRules() {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#1a0a2e' }}>
       <Header />
 
       <main className="flex-1">
-        <section className="py-16 bg-card border-b border-border">
+        <section className="py-16" style={{ backgroundColor: '#2d1b4e', borderBottom: '1px solid rgba(247, 166, 0, 0.3)' }}>
           <div className="container">
-            <h1 className="font-display font-bold text-5xl md:text-6xl mb-6 text-foreground">
-              Community Rules
+            <h1 className="heading-casino text-5xl md:text-6xl mb-6 text-white">
+              Community <span style={{ color: '#f7a600' }}>Rules</span>
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-gray-400">
               Our commitment to maintaining a safe, respectful, and fair gaming environment for all players.
             </p>
           </div>
         </section>
 
-        <section className="py-16 bg-background">
+        <section className="py-16" style={{ backgroundColor: '#1a0a2e' }}>
           <div className="container max-w-3xl">
             {/* Warning Banner */}
-            <Card className="bg-destructive/10 border border-destructive/30 p-6 mb-12 flex gap-4">
-              <AlertCircle className="w-6 h-6 text-destructive flex-shrink-0 mt-1" />
+            <div className="p-6 mb-12 flex gap-4 rounded-lg" style={{ backgroundColor: 'rgba(220, 38, 38, 0.1)', border: '2px dashed rgba(220, 38, 38, 0.5)' }}>
+              <AlertCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-display font-bold text-foreground mb-2">
+                <h3 className="font-display font-bold text-white mb-2">
                   Violation Consequences
                 </h3>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-gray-400 text-sm">
                   Violations of these community rules may result in account suspension, permanent bans, or legal action. We take the safety and integrity of our community seriously.
                 </p>
               </div>
-            </Card>
+            </div>
 
             {/* Rules */}
-            <div className="space-y-8">
+            <div className="space-y-6">
               {[
                 {
                   title: "Confidentiality & Privacy",
@@ -79,53 +78,53 @@ export default function CommunityRules() {
                   icon: "🚨",
                 },
               ].map((rule, idx) => (
-                <Card key={idx} className="bg-card border-border p-6">
+                <div key={idx} className="card-casino p-6">
                   <div className="flex gap-4">
                     <div className="text-3xl flex-shrink-0">{rule.icon}</div>
                     <div className="flex-1">
-                      <h3 className="font-display font-bold text-lg text-foreground mb-2">
+                      <h3 className="font-display font-bold text-lg text-white mb-2">
                         {rule.title}
                       </h3>
-                      <p className="text-muted-foreground">
+                      <p className="text-gray-400">
                         {rule.description}
                       </p>
                     </div>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
 
             {/* Enforcement */}
-            <Card className="bg-card border-border p-8 mt-12">
-              <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+            <div className="card-casino p-8 mt-12">
+              <h2 className="font-display font-bold text-2xl text-white mb-4">
                 Enforcement & Moderation
               </h2>
-              <div className="space-y-4 text-muted-foreground">
+              <div className="space-y-4 text-gray-400">
                 <p>
                   Our moderation team actively monitors the platform to ensure compliance with these community rules. We use a combination of automated systems and human moderators to detect and address violations.
                 </p>
                 <p>
-                  <strong className="text-foreground">Progressive Discipline:</strong> We typically follow a progressive discipline approach, starting with warnings for minor violations and escalating to temporary or permanent bans for serious or repeated offenses.
+                  <strong className="text-white">Progressive Discipline:</strong> We typically follow a progressive discipline approach, starting with warnings for minor violations and escalating to temporary or permanent bans for serious or repeated offenses.
                 </p>
                 <p>
-                  <strong className="text-foreground">Appeals:</strong> If you believe your account has been unfairly suspended or banned, you can appeal the decision by contacting our support team at support@playbystats.com with details about your case.
+                  <strong className="text-white">Appeals:</strong> If you believe your account has been unfairly suspended or banned, you can appeal the decision by contacting our support team at support@playbystats.com with details about your case.
                 </p>
               </div>
-            </Card>
+            </div>
 
             {/* Contact */}
-            <Card className="bg-accent/10 border border-accent/30 p-8 mt-8">
-              <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+            <div className="p-8 mt-8 rounded-lg" style={{ backgroundColor: 'rgba(247, 166, 0, 0.1)', border: '2px dashed #f7a600' }}>
+              <h2 className="font-display font-bold text-2xl text-white mb-4">
                 Questions or Concerns?
               </h2>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-gray-400 mb-4">
                 If you have questions about these community rules or need to report a violation, please contact our moderation team:
               </p>
-              <p className="text-foreground">
+              <p className="text-white">
                 <strong>Email:</strong> support@playbystats.com<br />
                 <strong>In-Game Report:</strong> Use the report button on any player profile or message
               </p>
-            </Card>
+            </div>
           </div>
         </section>
       </main>

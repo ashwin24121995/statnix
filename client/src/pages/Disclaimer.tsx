@@ -3,24 +3,24 @@ import Footer from "@/components/Footer";
 
 export default function Disclaimer() {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#1a0a2e' }}>
       <Header />
 
       <main className="flex-1">
-        <section className="py-16 bg-card border-b border-border">
+        <section className="py-16" style={{ backgroundColor: '#2d1b4e', borderBottom: '1px solid rgba(247, 166, 0, 0.3)' }}>
           <div className="container">
-            <h1 className="font-display font-bold text-5xl md:text-6xl mb-6 text-foreground">
-              Disclaimer
+            <h1 className="heading-casino text-5xl md:text-6xl mb-6 text-white">
+              <span style={{ color: '#f7a600' }}>Disclaimer</span>
             </h1>
-            <p className="text-muted-foreground">Last updated: January 2026</p>
+            <p className="text-gray-400">Last updated: January 2026</p>
           </div>
         </section>
 
-        <section className="py-16 bg-background">
+        <section className="py-16" style={{ backgroundColor: '#1a0a2e' }}>
           <div className="container max-w-3xl">
-            <div className="prose prose-invert max-w-none space-y-8 text-muted-foreground">
-              <div>
-                <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+            <div className="space-y-8 text-gray-400">
+              <div className="card-casino p-6">
+                <h2 className="font-display font-bold text-2xl text-white mb-4">
                   General Disclaimer
                 </h2>
                 <p>
@@ -28,8 +28,8 @@ export default function Disclaimer() {
                 </p>
               </div>
 
-              <div>
-                <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+              <div className="card-casino p-6">
+                <h2 className="font-display font-bold text-2xl text-white mb-4">
                   Limitation of Liability
                 </h2>
                 <p>
@@ -37,8 +37,8 @@ export default function Disclaimer() {
                 </p>
               </div>
 
-              <div>
-                <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+              <div className="card-casino p-6">
+                <h2 className="font-display font-bold text-2xl text-white mb-4">
                   External Links Disclaimer
                 </h2>
                 <p>
@@ -46,8 +46,8 @@ export default function Disclaimer() {
                 </p>
               </div>
 
-              <div>
-                <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+              <div className="card-casino p-6">
+                <h2 className="font-display font-bold text-2xl text-white mb-4">
                   Professional Advice Disclaimer
                 </h2>
                 <p>
@@ -55,8 +55,8 @@ export default function Disclaimer() {
                 </p>
               </div>
 
-              <div>
-                <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+              <div className="card-casino p-6">
+                <h2 className="font-display font-bold text-2xl text-white mb-4">
                   Affiliate Links Disclaimer
                 </h2>
                 <p>
@@ -64,8 +64,8 @@ export default function Disclaimer() {
                 </p>
               </div>
 
-              <div>
-                <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+              <div className="card-casino p-6">
+                <h2 className="font-display font-bold text-2xl text-white mb-4">
                   User Testimonials Disclaimer
                 </h2>
                 <p>
@@ -73,8 +73,8 @@ export default function Disclaimer() {
                 </p>
               </div>
 
-              <div>
-                <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+              <div className="card-casino p-6">
+                <h2 className="font-display font-bold text-2xl text-white mb-4">
                   No Warranty
                 </h2>
                 <p>
@@ -82,16 +82,16 @@ export default function Disclaimer() {
                 </p>
               </div>
 
-              <div>
-                <h2 className="font-display font-bold text-2xl text-foreground mb-4">
+              <div className="card-casino p-6">
+                <h2 className="font-display font-bold text-2xl text-white mb-4">
                   Contact Us
                 </h2>
                 <p>
                   If you have any questions about this Disclaimer, please contact us at:
                 </p>
                 <p className="mt-4">
-                  <strong className="text-foreground">Email:</strong> support@playbystats.com<br />
-                  <strong className="text-foreground">Address:</strong> C/O N K SHARMA SEC 9 TYPE, BT QR NO 463, HEC, Dhurwa, Ranchi, Ranchi-834004, Jharkhand
+                  <strong className="text-white">Email:</strong> support@playbystats.com<br />
+                  <strong className="text-white">Address:</strong> C/O N K SHARMA SEC 9 TYPE, BT QR NO 463, HEC, Dhurwa, Ranchi, Ranchi-834004, Jharkhand
                 </p>
               </div>
             </div>

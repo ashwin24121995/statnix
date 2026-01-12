@@ -1,16 +1,12 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { toast } from "sonner";
 
 /**
- * Design Philosophy: Modern Sports Analytics
- * - Contact form with clear visual hierarchy
- * - Company information prominently displayed
- * - Professional and accessible design
+ * Contact Page - Casinous Template Design
+ * Deep purple background (#1a0a2e) with golden yellow (#f7a600) accents
  */
 
 export default function Contact() {
@@ -43,7 +39,6 @@ export default function Contact() {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
     setTimeout(() => {
       toast.success("Message sent successfully! We'll get back to you soon.");
       setFormData({ name: "", email: "", subject: "", message: "" });
@@ -52,43 +47,45 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#1a0a2e' }}>
       <Header />
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-16 bg-card border-b border-border">
+        <section className="py-16" style={{ backgroundColor: '#2d1b4e', borderBottom: '1px solid rgba(247, 166, 0, 0.3)' }}>
           <div className="container">
-            <h1 className="font-display font-bold text-5xl md:text-6xl mb-6 text-foreground">
-              Get in Touch
+            <h1 className="heading-casino text-5xl md:text-6xl mb-6 text-white">
+              Get in <span style={{ color: '#f7a600' }}>Touch</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl">
+            <p className="text-xl text-gray-400 max-w-3xl">
               Have questions, feedback, or need support? We'd love to hear from you. Reach out to our team anytime.
             </p>
           </div>
         </section>
 
         {/* Contact Section */}
-        <section className="py-16 bg-background">
+        <section className="py-16" style={{ backgroundColor: '#1a0a2e' }}>
           <div className="container">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
               {/* Contact Info */}
               <div className="lg:col-span-1">
-                <Card className="bg-card border-border p-8 h-full">
-                  <h2 className="font-display font-bold text-2xl mb-8 text-foreground">
-                    Contact Information
+                <div className="card-casino p-8 h-full">
+                  <h2 className="heading-casino text-2xl mb-8 text-white">
+                    Contact <span style={{ color: '#f7a600' }}>Information</span>
                   </h2>
 
                   <div className="space-y-6">
                     {/* Email */}
                     <div className="flex gap-4">
-                      <Mail className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(247, 166, 0, 0.2)' }}>
+                        <Mail className="w-6 h-6" style={{ color: '#f7a600' }} />
+                      </div>
                       <div>
-                        <h3 className="font-display font-bold text-foreground mb-1">
+                        <h3 className="font-display font-bold text-white mb-1">
                           Email
                         </h3>
-                        <p className="text-muted-foreground">
-                          <a href="mailto:support@playbystats.com" className="hover:text-accent transition-colors">
+                        <p className="text-gray-400">
+                          <a href="mailto:support@playbystats.com" className="hover:text-[#f7a600] transition-colors">
                             support@playbystats.com
                           </a>
                         </p>
@@ -97,44 +94,46 @@ export default function Contact() {
 
                     {/* Address */}
                     <div className="flex gap-4">
-                      <MapPin className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(247, 166, 0, 0.2)' }}>
+                        <MapPin className="w-6 h-6" style={{ color: '#f7a600' }} />
+                      </div>
                       <div>
-                        <h3 className="font-display font-bold text-foreground mb-1">
+                        <h3 className="font-display font-bold text-white mb-1">
                           Address
                         </h3>
-                        <p className="text-muted-foreground text-sm">
+                        <p className="text-gray-400 text-sm">
                           C/O N K SHARMA SEC 9 TYPE, BT QR NO 463, HEC, Dhurwa, Ranchi, Ranchi-834004, Jharkhand
                         </p>
                       </div>
                     </div>
 
                     {/* Company Info */}
-                    <div className="pt-6 border-t border-border">
-                      <h3 className="font-display font-bold text-foreground mb-3">
+                    <div className="pt-6" style={{ borderTop: '1px solid rgba(247, 166, 0, 0.3)' }}>
+                      <h3 className="font-display font-bold text-white mb-3">
                         Company Details
                       </h3>
-                      <div className="text-sm text-muted-foreground space-y-2">
-                        <p><strong>Company:</strong> CC INNOVATIONS (OPC) PRIVATE LIMITED</p>
-                        <p><strong>CIN:</strong> U78100JH2023OPC021360</p>
-                        <p><strong>PAN:</strong> AALCC3673P</p>
-                        <p><strong>GST:</strong> 20AALCC3673P1ZB</p>
+                      <div className="text-sm text-gray-400 space-y-2">
+                        <p><strong className="text-white">Company:</strong> CC INNOVATIONS (OPC) PRIVATE LIMITED</p>
+                        <p><strong className="text-white">CIN:</strong> U78100JH2023OPC021360</p>
+                        <p><strong className="text-white">PAN:</strong> AALCC3673P</p>
+                        <p><strong className="text-white">GST:</strong> 20AALCC3673P1ZB</p>
                       </div>
                     </div>
                   </div>
-                </Card>
+                </div>
               </div>
 
               {/* Contact Form */}
               <div className="lg:col-span-2">
-                <Card className="bg-card border-border p-8">
-                  <h2 className="font-display font-bold text-2xl mb-6 text-foreground">
-                    Send us a Message
+                <div className="card-casino p-8">
+                  <h2 className="heading-casino text-2xl mb-6 text-white">
+                    Send us a <span style={{ color: '#f7a600' }}>Message</span>
                   </h2>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Name */}
                     <div>
-                      <label className="block text-foreground font-semibold mb-2">
+                      <label className="block text-white font-semibold mb-2">
                         Full Name
                       </label>
                       <input
@@ -143,13 +142,14 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Your name"
-                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors"
+                        className="w-full px-4 py-3 rounded-lg text-white placeholder-gray-500 focus:outline-none transition-colors"
+                        style={{ backgroundColor: '#1a0a2e', border: '2px dashed rgba(247, 166, 0, 0.3)' }}
                       />
                     </div>
 
                     {/* Email */}
                     <div>
-                      <label className="block text-foreground font-semibold mb-2">
+                      <label className="block text-white font-semibold mb-2">
                         Email Address
                       </label>
                       <input
@@ -158,13 +158,14 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="your@email.com"
-                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors"
+                        className="w-full px-4 py-3 rounded-lg text-white placeholder-gray-500 focus:outline-none transition-colors"
+                        style={{ backgroundColor: '#1a0a2e', border: '2px dashed rgba(247, 166, 0, 0.3)' }}
                       />
                     </div>
 
                     {/* Subject */}
                     <div>
-                      <label className="block text-foreground font-semibold mb-2">
+                      <label className="block text-white font-semibold mb-2">
                         Subject
                       </label>
                       <input
@@ -173,13 +174,14 @@ export default function Contact() {
                         value={formData.subject}
                         onChange={handleChange}
                         placeholder="What is this about?"
-                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors"
+                        className="w-full px-4 py-3 rounded-lg text-white placeholder-gray-500 focus:outline-none transition-colors"
+                        style={{ backgroundColor: '#1a0a2e', border: '2px dashed rgba(247, 166, 0, 0.3)' }}
                       />
                     </div>
 
                     {/* Message */}
                     <div>
-                      <label className="block text-foreground font-semibold mb-2">
+                      <label className="block text-white font-semibold mb-2">
                         Message
                       </label>
                       <textarea
@@ -188,27 +190,28 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="Tell us what's on your mind..."
                         rows={6}
-                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors resize-none"
+                        className="w-full px-4 py-3 rounded-lg text-white placeholder-gray-500 focus:outline-none transition-colors resize-none"
+                        style={{ backgroundColor: '#1a0a2e', border: '2px dashed rgba(247, 166, 0, 0.3)' }}
                       />
                     </div>
 
                     {/* Submit Button */}
-                    <Button
+                    <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold py-3"
+                      className="w-full btn-casino py-4 disabled:opacity-50"
                     >
                       {isSubmitting ? "Sending..." : "Send Message"}
-                    </Button>
+                    </button>
                   </form>
-                </Card>
+                </div>
               </div>
             </div>
 
             {/* FAQ Section */}
-            <div className="bg-card border border-border rounded-lg p-8">
-              <h2 className="font-display font-bold text-2xl mb-8 text-foreground">
-                Frequently Asked Questions
+            <div className="card-casino p-8">
+              <h2 className="heading-casino text-2xl mb-8 text-white">
+                Frequently Asked <span style={{ color: '#f7a600' }}>Questions</span>
               </h2>
 
               <div className="space-y-6">
@@ -230,11 +233,11 @@ export default function Contact() {
                     a: "Yes, we take privacy and security very seriously. Please review our Privacy Policy for detailed information about how we handle your data.",
                   },
                 ].map((faq, idx) => (
-                  <div key={idx} className="border-b border-border pb-6 last:border-b-0">
-                    <h3 className="font-display font-bold text-foreground mb-2">
+                  <div key={idx} className="pb-6 last:pb-0" style={{ borderBottom: idx < 3 ? '1px solid rgba(247, 166, 0, 0.3)' : 'none' }}>
+                    <h3 className="font-display font-bold text-white mb-2">
                       {faq.q}
                     </h3>
-                    <p className="text-muted-foreground">
+                    <p className="text-gray-400">
                       {faq.a}
                     </p>
                   </div>
