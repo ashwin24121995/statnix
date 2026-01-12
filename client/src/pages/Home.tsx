@@ -23,12 +23,12 @@ export default function Home() {
         <section
           className="relative min-h-screen flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: "url('/images/hero-bg.jpg')",
+            backgroundImage: "url('/images/premium-hero-bg.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/50" />
 
           <div className="container relative z-10 py-20">
             <div className="max-w-2xl">
@@ -38,12 +38,12 @@ export default function Home() {
                 </span>
               </div>
 
-              <h1 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl mb-6 text-foreground leading-tight">
-                Experience Gaming Like Never Before
+              <h1 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl mb-6 text-accent leading-tight drop-shadow-lg">
+                Premium Casino Experience
               </h1>
 
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl leading-relaxed">
-                Join thousands of players in our free-to-play social gaming platform. Enjoy engaging games, fair play, and a thriving community.
+              <p className="text-lg md:text-xl text-foreground mb-8 max-w-xl leading-relaxed">
+                Experience the thrill of luxury gaming with stunning graphics, immersive sound, and authentic casino gameplay. Free-to-play, no real money involved.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">

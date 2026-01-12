@@ -9,9 +9,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <nav className="container flex items-center justify-between py-4">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-gradient-to-br from-accent to-primary rounded-lg flex items-center justify-center">
-            <span className="text-accent-foreground font-display font-bold text-lg">PBS</span>
-          </div>
+          <img src="/images/logo.png" alt="Play By Stats" className="h-12 w-12 object-contain" />
           <span className="font-display font-bold text-xl text-foreground hidden sm:inline">Play By Stats</span>
         </Link>
 
