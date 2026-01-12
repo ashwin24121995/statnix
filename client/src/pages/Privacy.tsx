@@ -24,7 +24,7 @@ export default function Privacy() {
                   1. Introduction
                 </h2>
                 <p>
-                  Statnix ("we," "us," "our," or "Company") operates the playbystats.com website (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
+                  STATNIX ("we," "us," "our," or "Company") operates the playbystats.com website (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
                 </p>
               </div>
 
@@ -50,7 +50,7 @@ export default function Privacy() {
                   3. Use of Data
                 </h2>
                 <p>
-                  Statnix uses the collected data for various purposes:
+                  STATNIX uses the collected data for various purposes:
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4 mt-2">
                   <li>To provide and maintain our Service</li>

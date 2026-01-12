@@ -18,9 +18,9 @@ export default function Header() {
       <nav className="container flex items-center justify-between py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <img src="/images/statnix-logo.png" alt="Statnix" className="h-12 w-12 object-contain" />
+          <img src="/images/statnix-logo.png" alt="STATNIX" className="h-12 w-12 object-contain" />
           <span className="font-display font-bold text-xl hidden sm:inline" style={{ color: '#f7a600' }}>
-            Statnix
+            STATNIX
           </span>
         </Link>
 

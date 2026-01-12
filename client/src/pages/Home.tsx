@@ -159,7 +159,7 @@ export default function Home() {
                   <span className="text-white">Casino</span>
                 </h2>
                 <p className="text-gray-400 mb-8 leading-relaxed">
-                  Statnix offers a premium social gaming experience with no real money involved. Enjoy authentic casino entertainment in a safe, secure environment designed for pure fun and excitement.
+                  STATNIX offers a premium social gaming experience with no real money involved. Enjoy authentic casino entertainment in a safe, secure environment designed for pure fun and excitement.
                 </p>
                 <Link href="/play">
                   <button className="btn-casino">
@@ -202,7 +202,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { step: "01", title: "Visit Our Platform", desc: "Access Statnix from any device with a web browser." },
+                { step: "01", title: "Visit Our Platform", desc: "Access STATNIX from any device with a web browser." },
                 { step: "02", title: "Choose Your Game", desc: "Select from our collection of premium casino games." },
                 { step: "03", title: "Play & Enjoy", desc: "Start playing instantly and experience the thrill!" },
               ].map((item, idx) => (
