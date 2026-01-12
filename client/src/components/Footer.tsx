@@ -51,6 +51,13 @@ export default function Footer() {
 
         {/* Divider */}
         <div className="border-t border-border pt-8 mt-8">
+          {/* Age & Responsible Gaming Disclaimer */}
+          <div className="mb-8 p-4 bg-accent/10 border border-accent/30 rounded-lg">
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              <strong className="text-foreground">Age & Responsible Gaming Disclaimer:</strong> The content on this site is intended for users who are 18 years of age or older. It operates as a social gaming platform featuring free-to-play experiences available for entertainment and fun. This is a safe environment with no real money involved. No real currency can be used or gained during gameplay. We promote responsible gaming and fair play. All achievements are for entertainment purposes only and do not translate into any real-world financial activities. Enjoy risk-free gaming in our community.
+            </p>
+          </div>
+
           {/* Legal Address */}
           <div className="mb-6">
             <h4 className="font-display font-semibold mb-2 text-foreground text-sm">Registered Address</h4>
