@@ -52,8 +52,16 @@ export default function Contact() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-16" style={{ backgroundColor: '#2d1b4e', borderBottom: '1px solid rgba(247, 166, 0, 0.3)' }}>
-          <div className="container">
+        <section
+          className="relative min-h-[40vh] flex items-center overflow-hidden"
+          style={{
+            backgroundImage: "url('/images/contact-hero-bg.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(26, 10, 46, 0.95), rgba(26, 10, 46, 0.7))' }} />
+          <div className="container relative z-10 py-16">
             <h1 className="heading-casino text-5xl md:text-6xl mb-6 text-white">
               Get in <span style={{ color: '#f7a600' }}>Touch</span>
             </h1>

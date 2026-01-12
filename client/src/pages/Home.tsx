@@ -34,10 +34,10 @@ export default function Home() {
   ];
 
   const games = [
-    { name: "Premium Slots", image: "/images/game-slots-icon.png", limit: "Free Play" },
-    { name: "Roulette", image: "/images/game-roulette-icon.png", limit: "Free Play" },
-    { name: "Card Games", image: "/images/game-cards-icon.png", limit: "Free Play" },
-    { name: "Lucky Spin", image: "/images/slots-machine.png", limit: "Free Play" },
+    { name: "Premium Slots", image: "/images/game-slots-icon.png", limit: "Free Play", route: "/play" },
+    { name: "Roulette", image: "/images/game-roulette-icon.png", limit: "Free Play", route: "/roulette" },
+    { name: "Blackjack", image: "/images/game-cards-new.png", limit: "Free Play", route: "/blackjack" },
+    { name: "Lucky Spin", image: "/images/lucky-spin-icon.png", limit: "Free Play", route: "/play" },
   ];
 
   return (
@@ -129,7 +129,7 @@ export default function Home() {
                     Play Limit
                   </p>
                   <p className="font-semibold mb-4" style={{ color: '#f7a600' }}>{game.limit}</p>
-                  <Link href="/play">
+                  <Link href={game.route}>
                     <button className="btn-casino-outline w-full text-sm py-3">
                       Play Now
                     </button>

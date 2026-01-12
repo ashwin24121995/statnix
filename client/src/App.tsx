@@ -6,6 +6,8 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Play from "./pages/Play";
+import Roulette from "./pages/Roulette";
+import Blackjack from "./pages/Blackjack";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
@@ -18,6 +20,8 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/play"} component={Play} />
+      <Route path={"/roulette"} component={Roulette} />
+      <Route path={"/blackjack"} component={Blackjack} />
       <Route path={"/about"} component={About} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/privacy"} component={Privacy} />

@@ -15,8 +15,16 @@ export default function About() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-16" style={{ backgroundColor: '#2d1b4e', borderBottom: '1px solid rgba(247, 166, 0, 0.3)' }}>
-          <div className="container">
+        <section
+          className="relative min-h-[40vh] flex items-center overflow-hidden"
+          style={{
+            backgroundImage: "url('/images/about-hero-bg.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(26, 10, 46, 0.95), rgba(26, 10, 46, 0.7))' }} />
+          <div className="container relative z-10 py-16">
             <h1 className="heading-casino text-5xl md:text-6xl mb-6 text-white">
               About <span style={{ color: '#f7a600' }}>Play By Stats</span>
             </h1>
@@ -33,7 +41,7 @@ export default function About() {
               {/* Mission */}
               <div className="card-casino p-8">
                 <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(247, 166, 0, 0.2)' }}>
-                  <span className="text-2xl">🎯</span>
+                  <span className="text-2xl font-bold" style={{ color: '#f7a600' }}>M</span>
                 </div>
                 <h2 className="font-display font-bold text-2xl mb-4 text-white">
                   Our Mission
@@ -46,7 +54,7 @@ export default function About() {
               {/* Vision */}
               <div className="card-casino p-8">
                 <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(247, 166, 0, 0.2)' }}>
-                  <span className="text-2xl">✨</span>
+                  <span className="text-2xl font-bold" style={{ color: '#f7a600' }}>V</span>
                 </div>
                 <h2 className="font-display font-bold text-2xl mb-4 text-white">
                   Our Vision
@@ -119,36 +127,38 @@ export default function About() {
                 {
                   title: "Free-to-Play Games",
                   description: "Enjoy a variety of games without spending a dime. No real-money gambling, just pure entertainment.",
-                  icon: "🎮",
+                  icon: "Games",
                 },
                 {
                   title: "Themed Adventures",
                   description: "Immerse yourself in unique game worlds and themed experiences designed for maximum enjoyment.",
-                  icon: "🌍",
+                  icon: "Worlds",
                 },
                 {
                   title: "Safe Environment",
                   description: "Play with confidence knowing your data is protected and the platform is moderated for safety.",
-                  icon: "🛡️",
+                  icon: "Safe",
                 },
                 {
                   title: "Skill-Based Challenges",
                   description: "Test your abilities with games that reward strategy, timing, and decision-making.",
-                  icon: "⚡",
+                  icon: "Skills",
                 },
                 {
                   title: "Community Features",
                   description: "Connect with other players, share achievements, and be part of a thriving gaming community.",
-                  icon: "👥",
+                  icon: "Social",
                 },
                 {
                   title: "Regular Updates",
                   description: "We constantly add new games, features, and improvements based on player feedback.",
-                  icon: "🚀",
+                  icon: "Updates",
                 },
               ].map((offer, idx) => (
                 <div key={idx} className="card-casino p-6">
-                  <div className="text-4xl mb-4">{offer.icon}</div>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(247, 166, 0, 0.2)' }}>
+                    <span className="text-lg font-bold" style={{ color: '#f7a600' }}>{offer.icon[0]}</span>
+                  </div>
                   <h3 className="font-display font-bold text-lg mb-2 text-white">
                     {offer.title}
                   </h3>
