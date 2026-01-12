@@ -141,8 +141,16 @@ export default function Home() {
         </section>
 
         {/* Why Play Section */}
-        <section className="py-20" style={{ backgroundColor: '#2d1b4e' }}>
-          <div className="container">
+        <section
+          className="relative py-20 overflow-hidden"
+          style={{
+            backgroundImage: "url('/images/why-play-bg.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(26, 10, 46, 0.95), rgba(26, 10, 46, 0.85), rgba(26, 10, 46, 0.75))' }} />
+          <div className="container relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
                 <h2 className="heading-casino text-4xl md:text-5xl mb-6">
