@@ -13,7 +13,7 @@ export default function Footer() {
               <img src="/images/statnix-logo.webp" alt="STATNIX" className="h-16 w-16 object-contain" />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Premium social gaming platform offering free-to-play casino entertainment. No real money involved.
+              Free social gaming platform providing engaging entertainment experiences with a focus on user safety and fair play.
             </p>
           </div>
 
