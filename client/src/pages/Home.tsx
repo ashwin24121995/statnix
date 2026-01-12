@@ -60,14 +60,13 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h1 className="heading-casino text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight">
-                  <span className="text-white">Play </span>
-                  <span style={{ color: '#f7a600' }}>Premium Casino</span>
+                  <span style={{ color: '#f7a600' }}>Experience Gaming</span>
                   <br />
-                  <span className="text-white">& Win Big</span>
+                  <span className="text-white">Like Never Before</span>
                 </h1>
 
                 <p className="text-gray-400 mb-8 max-w-xl leading-relaxed text-lg">
-                  Experience the ultimate casino entertainment with stunning graphics, immersive gameplay, and authentic casino atmosphere. No real money involved - just pure fun!
+                  We create vibrant, handcrafted social games designed purely for joy and entertainment. No real money. No financial transactions. Just a completely risk-free space filled with good vibes and play. Jump in, explore at your pace, and share the joy of social gaming.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
