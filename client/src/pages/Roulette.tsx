@@ -4,14 +4,13 @@ import Footer from "@/components/Footer";
 import { RotateCcw, Volume2, VolumeX } from "lucide-react";
 
 /**
- * Roulette Page - Premium Roulette Game
- * Realistic spinning wheel with physics-based animations
+ * Roulette Page - Premium 3D Roulette Game
+ * Realistic spinning wheel with continuous rotation and 3D effects
  */
 
 const NUMBERS = Array.from({ length: 37 }, (_, i) => i);
 const RED_NUMBERS = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
 const BLACK_NUMBERS = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
-
 const INITIAL_CREDITS = 1000;
 
 export default function Roulette() {
@@ -24,12 +23,23 @@ export default function Roulette() {
   const [status, setStatus] = useState("Select your bet");
   const [lastWin, setLastWin] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
+  const [idleRotation, setIdleRotation] = useState(0);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const idleIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" && !audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
+
+    // Continuous idle rotation
+    idleIntervalRef.current = setInterval(() => {
+      setIdleRotation((prev) => (prev + 0.5) % 360);
+    }, 50);
+
+    return () => {
+      if (idleIntervalRef.current) clearInterval(idleIntervalRef.current);
+    };
   }, []);
 
   const playSound = (frequency: number, duration: number, type: "sine" | "square" = "sine") => {
@@ -53,8 +63,8 @@ export default function Roulette() {
   };
 
   const playSpinSound = () => {
-    for (let i = 0; i < 10; i++) {
-      setTimeout(() => playSound(400 + i * 50, 0.05, "square"), i * 30);
+    for (let i = 0; i < 15; i++) {
+      setTimeout(() => playSound(300 + i * 40, 0.08, "square"), i * 25);
     }
   };
 
@@ -78,7 +88,7 @@ export default function Roulette() {
     playSpinSound();
 
     const winningNumber = Math.floor(Math.random() * 37);
-    const spins = 5 + Math.random() * 3;
+    const spins = 8 + Math.random() * 4;
     const finalRotation = spins * 360 + (winningNumber * 360) / 37;
 
     setWheelRotation(finalRotation);
@@ -104,270 +114,251 @@ export default function Roulette() {
       }
 
       if (win > 0) {
+        setStatus(`Number ${winningNumber} - You won ${win} credits!`);
         setLastWin(win);
         setCredits((prev) => prev + win);
-        setStatus(`You won ${win} credits! Number ${winningNumber}`);
         playWinSound();
       } else {
+        setStatus(`Number ${winningNumber} - Better luck next time!`);
         setLastWin(0);
-        setStatus(`Number ${winningNumber} - No match`);
       }
-    }, 4000);
+    }, 5000);
+  };
+
+  const resetGame = () => {
+    setCredits(INITIAL_CREDITS);
+    setLastWin(0);
+    setLastNumber(null);
+    setStatus("Select your bet");
+    setSelectedBet(null);
+    setWheelRotation(0);
   };
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#1a0a2e" }}>
       <Header />
 
-      <main className="flex-1 py-12">
+      <main className="flex-1 py-8">
         <div className="container">
-          {/* Game Title */}
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl mb-4" style={{ color: "#f7a600", fontFamily: "Poppins", fontWeight: 700, fontStyle: "italic" }}>
+          {/* Page Title */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-5xl mb-2" style={{ color: "#f7a600", fontFamily: "Poppins", fontWeight: 700, fontStyle: "italic" }}>
               Premium Roulette
             </h1>
-            <p className="text-gray-400 text-lg">Experience the classic casino game</p>
+            <p className="text-gray-400">Experience the classic casino game</p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            {/* Credits Display */}
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="p-4 rounded-lg" style={{ backgroundColor: "#2d1b4e", border: "2px dashed #f7a600" }}>
-                <p className="text-gray-400 text-sm mb-2">Total Credits</p>
-                <p className="text-3xl font-bold" style={{ color: "#f7a600" }}>{credits}</p>
-              </div>
-              <div className="p-4 rounded-lg" style={{ backgroundColor: "#2d1b4e", border: "2px dashed #f7a600" }}>
-                <p className="text-gray-400 text-sm mb-2">Last Win</p>
-                <p className="text-3xl font-bold" style={{ color: lastWin > 0 ? "#00FF00" : "#FF6B6B" }}>{lastWin}</p>
-              </div>
-            </div>
+          {/* Main Game Container */}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Left Panel - Betting Controls */}
+              <div className="lg:col-span-1">
+                <div className="p-6 rounded-lg" style={{ backgroundColor: "#2d1b4e", border: "2px dashed #f7a600" }}>
+                  {/* Credits Display */}
+                  <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: "#1a0a2e", border: "2px solid #f7a600" }}>
+                    <p className="text-gray-400 text-sm mb-2">Total Credits</p>
+                    <p className="text-3xl font-bold" style={{ color: "#f7a600" }}>
+                      {credits}
+                    </p>
+                  </div>
 
-            {/* Roulette Wheel */}
-            <div className="flex justify-center mb-12">
-              <div className="relative w-80 h-80">
-                {/* Wheel */}
-                <svg
-                  viewBox="0 0 400 400"
-                  className="w-full h-full"
-                  style={{
-                    transform: `rotate(${wheelRotation}deg)`,
-                    transition: isSpinning ? "transform 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "none",
-                  }}
-                >
-                  {/* Draw wheel segments */}
-                  {NUMBERS.map((num) => {
-                    const angle = (num * 360) / 37;
-                    const startAngle = angle * (Math.PI / 180);
-                    const endAngle = ((angle + 360 / 37) * Math.PI) / 180;
-                    const radius = 180;
-                    const x1 = 200 + radius * Math.cos(startAngle);
-                    const y1 = 200 + radius * Math.sin(startAngle);
-                    const x2 = 200 + radius * Math.cos(endAngle);
-                    const y2 = 200 + radius * Math.sin(endAngle);
-                    const largeArc = 360 / 37 > 180 ? 1 : 0;
-
-                    const color = getNumberColor(num);
-
-                    return (
-                      <g key={num}>
-                        <path
-                          d={`M 200 200 L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z`}
-                          fill={color}
-                          stroke="#f7a600"
-                          strokeWidth="2"
-                        />
-                        <text
-                          x={200 + (radius - 30) * Math.cos((startAngle + endAngle) / 2)}
-                          y={200 + (radius - 30) * Math.sin((startAngle + endAngle) / 2)}
-                          textAnchor="middle"
-                          dominantBaseline="middle"
-                          fill="#f7a600"
-                          fontSize="16"
-                          fontWeight="bold"
+                  {/* Bet Amount */}
+                  <div className="mb-6">
+                    <p className="text-gray-400 text-sm mb-3">Bet Amount</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[10, 25, 50, 100].map((amount) => (
+                        <button
+                          key={amount}
+                          onClick={() => setBet(amount)}
+                          disabled={amount > credits}
+                          className="py-2 rounded font-semibold text-sm transition-all disabled:opacity-50"
+                          style={{
+                            backgroundColor: bet === amount ? "#f7a600" : "#1a0a2e",
+                            color: bet === amount ? "#1a0a2e" : "#f7a600",
+                            border: `2px ${bet === amount ? "solid" : "dashed"} #f7a600`,
+                          }}
                         >
-                          {num}
-                        </text>
-                      </g>
-                    );
-                  })}
+                          {amount}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
-                  {/* Center circle */}
-                  <circle cx="200" cy="200" r="40" fill="#f7a600" stroke="#1a0a2e" strokeWidth="3" />
-                  <circle cx="200" cy="200" r="30" fill="#1a0a2e" />
-                  <text x="200" y="200" textAnchor="middle" dominantBaseline="middle" fill="#f7a600" fontSize="20" fontWeight="bold">
-                    {lastNumber !== null ? lastNumber : "0"}
-                  </text>
-                </svg>
+                  {/* Bet Types */}
+                  <div className="mb-6">
+                    <p className="text-gray-400 text-sm mb-3">Bet Type</p>
+                    <div className="space-y-2">
+                      {[
+                        { type: "red", label: "Red" },
+                        { type: "black", label: "Black" },
+                        { type: "even", label: "Even" },
+                        { type: "odd", label: "Odd" },
+                      ].map((option) => (
+                        <button
+                          key={option.type}
+                          onClick={() => setSelectedBet({ type: option.type, value: option.type })}
+                          disabled={isSpinning}
+                          className="w-full py-2 rounded font-semibold text-sm transition-all disabled:opacity-50"
+                          style={{
+                            backgroundColor: selectedBet?.type === option.type ? "#f7a600" : "#1a0a2e",
+                            color: selectedBet?.type === option.type ? "#1a0a2e" : "#f7a600",
+                            border: `2px ${selectedBet?.type === option.type ? "solid" : "dashed"} #f7a600`,
+                          }}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
-                {/* Ball indicator */}
-                <div
-                  className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4"
-                  style={{
-                    width: "12px",
-                    height: "12px",
-                    backgroundColor: "#FFD700",
-                    borderRadius: "50%",
-                    boxShadow: "0 0 10px rgba(255, 215, 0, 0.8)",
-                  }}
-                />
+                  {/* Last Win */}
+                  <div className="p-3 rounded-lg" style={{ backgroundColor: "#1a0a2e", border: "2px solid #f7a600" }}>
+                    <p className="text-gray-400 text-xs mb-1">Last Win</p>
+                    <p className="text-2xl font-bold" style={{ color: lastWin > 0 ? "#00FF00" : "#FF6B6B" }}>
+                      {lastWin}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* Status */}
-            <div className="text-center mb-8">
-              <p className="text-lg font-semibold" style={{ color: status.includes("won") ? "#00FF00" : status.includes("No match") ? "#FF6B6B" : "#f7a600" }}>
-                {status}
-              </p>
-            </div>
-
-            {/* Betting Options */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              {/* Number Betting */}
-              <div className="p-6 rounded-lg" style={{ backgroundColor: "#2d1b4e", border: "2px dashed #f7a600" }}>
-                <h3 className="text-xl font-bold mb-4" style={{ color: "#f7a600" }}>Number Bet (36:1)</h3>
-                <div className="grid grid-cols-6 gap-2">
-                  {NUMBERS.map((num) => (
-                    <button
-                      key={num}
-                      onClick={() => setSelectedBet({ type: "number", value: num })}
-                      disabled={isSpinning}
-                      className="p-2 rounded font-bold transition-all"
+              {/* Center Panel - Wheel */}
+              <div className="lg:col-span-1 flex flex-col items-center justify-center">
+                <div className="relative w-full max-w-sm aspect-square mb-6">
+                  {/* Spinner Indicator */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
+                    <div
                       style={{
-                        backgroundColor: selectedBet?.type === "number" && selectedBet.value === num ? "#f7a600" : getNumberColor(num),
-                        color: selectedBet?.type === "number" && selectedBet.value === num ? "#1a0a2e" : "#f7a600",
-                        border: `2px ${selectedBet?.type === "number" && selectedBet.value === num ? "solid" : "dashed"} #f7a600`,
+                        width: "30px",
+                        height: "30px",
+                        backgroundColor: "#f7a600",
+                        clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
+                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
+                      }}
+                    />
+                  </div>
+
+                  {/* 3D Roulette Wheel */}
+                  <svg
+                    viewBox="0 0 400 400"
+                    className="w-full h-full"
+                    style={{
+                      transform: `rotate(${isSpinning ? wheelRotation : idleRotation}deg)`,
+                      transition: isSpinning ? "transform 5s cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "none",
+                      filter: "drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5))",
+                    }}
+                  >
+                    {/* Wheel segments */}
+                    {NUMBERS.map((num) => {
+                      const angle = (num * 360) / 37;
+                      const color = getNumberColor(num);
+                      const isRed = RED_NUMBERS.includes(num);
+
+                      return (
+                        <g key={num}>
+                          {/* Segment */}
+                          <path
+                            d={`M 200 200 L ${200 + 180 * Math.cos((angle - 4.86) * (Math.PI / 180))} ${200 + 180 * Math.sin((angle - 4.86) * (Math.PI / 180))} A 180 180 0 0 1 ${200 + 180 * Math.cos((angle + 4.86) * (Math.PI / 180))} ${200 + 180 * Math.sin((angle + 4.86) * (Math.PI / 180))} Z`}
+                            fill={color}
+                            stroke="#f7a600"
+                            strokeWidth="2"
+                          />
+                          {/* Number */}
+                          <text
+                            x={200 + 140 * Math.cos((angle) * (Math.PI / 180))}
+                            y={200 + 140 * Math.sin((angle) * (Math.PI / 180))}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fill="#f7a600"
+                            fontSize="16"
+                            fontWeight="bold"
+                            style={{ pointerEvents: "none" }}
+                          >
+                            {num}
+                          </text>
+                        </g>
+                      );
+                    })}
+
+                    {/* Center circle */}
+                    <circle cx="200" cy="200" r="40" fill="#f7a600" stroke="#1a0a2e" strokeWidth="3" />
+                    <circle cx="200" cy="200" r="30" fill="#1a0a2e" />
+                    <circle cx="200" cy="200" r="20" fill="#f7a600" />
+                  </svg>
+                </div>
+
+                {/* Status */}
+                <div className="text-center w-full">
+                  <p className="text-lg font-semibold mb-4" style={{ color: status.includes("won") ? "#00FF00" : "#f7a600" }}>
+                    {status}
+                  </p>
+
+                  {/* Spin Button */}
+                  <button
+                    onClick={spin}
+                    disabled={isSpinning || !selectedBet || credits < bet}
+                    className="w-full py-4 rounded-lg font-bold text-lg transition-all transform hover:scale-105 disabled:opacity-50"
+                    style={{
+                      backgroundColor: "#f7a600",
+                      color: "#1a0a2e",
+                    }}
+                  >
+                    {isSpinning ? "SPINNING..." : "SPIN WHEEL"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Right Panel - Number Betting */}
+              <div className="lg:col-span-1">
+                <div className="p-6 rounded-lg" style={{ backgroundColor: "#2d1b4e", border: "2px dashed #f7a600" }}>
+                  <p className="text-gray-400 text-sm mb-4">Bet on Number</p>
+                  <div className="grid grid-cols-4 gap-2 max-h-96 overflow-y-auto">
+                    {NUMBERS.map((num) => (
+                      <button
+                        key={num}
+                        onClick={() => setSelectedBet({ type: "number", value: num })}
+                        disabled={isSpinning}
+                        className="py-2 rounded font-semibold text-sm transition-all disabled:opacity-50"
+                        style={{
+                          backgroundColor: selectedBet?.type === "number" && selectedBet?.value === num ? "#f7a600" : getNumberColor(num),
+                          color: selectedBet?.type === "number" && selectedBet?.value === num ? "#1a0a2e" : "#f7a600",
+                          border: `2px ${selectedBet?.type === "number" && selectedBet?.value === num ? "solid" : "dashed"} #f7a600`,
+                        }}
+                      >
+                        {num}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Control Buttons */}
+                  <div className="mt-6 space-y-2">
+                    <button
+                      onClick={() => setIsMuted(!isMuted)}
+                      className="w-full py-2 rounded-lg flex items-center justify-center gap-2 transition-all"
+                      style={{
+                        backgroundColor: "#1a0a2e",
+                        border: "2px dashed #f7a600",
+                        color: "#f7a600",
                       }}
                     >
-                      {num}
+                      {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                      {isMuted ? "Muted" : "Sound"}
                     </button>
-                  ))}
+
+                    <button
+                      onClick={resetGame}
+                      className="w-full py-2 rounded-lg flex items-center justify-center gap-2 transition-all"
+                      style={{
+                        backgroundColor: "#1a0a2e",
+                        border: "2px dashed #f7a600",
+                        color: "#f7a600",
+                      }}
+                    >
+                      <RotateCcw size={16} />
+                      Reset
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              {/* Color & Even/Odd Betting */}
-              <div className="p-6 rounded-lg" style={{ backgroundColor: "#2d1b4e", border: "2px dashed #f7a600" }}>
-                <h3 className="text-xl font-bold mb-4" style={{ color: "#f7a600" }}>Other Bets (2:1)</h3>
-                <div className="space-y-2">
-                  <button
-                    onClick={() => setSelectedBet({ type: "red", value: "red" })}
-                    disabled={isSpinning}
-                    className="w-full py-3 rounded font-bold transition-all"
-                    style={{
-                      backgroundColor: selectedBet?.type === "red" ? "#FF1493" : "#1a0a2e",
-                      color: "#f7a600",
-                      border: `2px ${selectedBet?.type === "red" ? "solid" : "dashed"} #FF1493`,
-                    }}
-                  >
-                    Red
-                  </button>
-                  <button
-                    onClick={() => setSelectedBet({ type: "black", value: "black" })}
-                    disabled={isSpinning}
-                    className="w-full py-3 rounded font-bold transition-all"
-                    style={{
-                      backgroundColor: selectedBet?.type === "black" ? "#000000" : "#1a0a2e",
-                      color: "#f7a600",
-                      border: `2px ${selectedBet?.type === "black" ? "solid" : "dashed"} #000000`,
-                    }}
-                  >
-                    Black
-                  </button>
-                  <button
-                    onClick={() => setSelectedBet({ type: "even", value: "even" })}
-                    disabled={isSpinning}
-                    className="w-full py-3 rounded font-bold transition-all"
-                    style={{
-                      backgroundColor: selectedBet?.type === "even" ? "#f7a600" : "#1a0a2e",
-                      color: selectedBet?.type === "even" ? "#1a0a2e" : "#f7a600",
-                      border: `2px ${selectedBet?.type === "even" ? "solid" : "dashed"} #f7a600`,
-                    }}
-                  >
-                    Even
-                  </button>
-                  <button
-                    onClick={() => setSelectedBet({ type: "odd", value: "odd" })}
-                    disabled={isSpinning}
-                    className="w-full py-3 rounded font-bold transition-all"
-                    style={{
-                      backgroundColor: selectedBet?.type === "odd" ? "#f7a600" : "#1a0a2e",
-                      color: selectedBet?.type === "odd" ? "#1a0a2e" : "#f7a600",
-                      border: `2px ${selectedBet?.type === "odd" ? "solid" : "dashed"} #f7a600`,
-                    }}
-                  >
-                    Odd
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Bet Amount */}
-            <div className="mb-8">
-              <p className="text-gray-400 mb-4">Bet Amount</p>
-              <div className="grid grid-cols-4 gap-2 mb-4">
-                {[10, 25, 50, 100].map((amount) => (
-                  <button
-                    key={amount}
-                    onClick={() => setBet(amount)}
-                    disabled={amount > credits || isSpinning}
-                    className="py-3 rounded-lg font-semibold transition-all disabled:opacity-50"
-                    style={{
-                      backgroundColor: bet === amount ? "#f7a600" : "#2d1b4e",
-                      color: bet === amount ? "#1a0a2e" : "#f7a600",
-                      border: `2px ${bet === amount ? "solid" : "dashed"} #f7a600`,
-                    }}
-                  >
-                    {amount}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Spin Button */}
-            <button
-              onClick={spin}
-              disabled={isSpinning || !selectedBet || credits < bet}
-              className="w-full py-4 rounded-lg font-bold text-lg transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{
-                backgroundColor: "#f7a600",
-                color: "#1a0a2e",
-              }}
-            >
-              {isSpinning ? "SPINNING..." : "SPIN WHEEL"}
-            </button>
-
-            {/* Controls */}
-            <div className="flex gap-4 mt-6">
-              <button
-                onClick={() => setIsMuted(!isMuted)}
-                className="flex-1 py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
-                style={{
-                  backgroundColor: "#2d1b4e",
-                  border: "2px dashed #f7a600",
-                  color: "#f7a600",
-                }}
-              >
-                {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-                {isMuted ? "Muted" : "Sound On"}
-              </button>
-
-              <button
-                onClick={() => {
-                  setCredits(INITIAL_CREDITS);
-                  setLastWin(0);
-                  setStatus("Select your bet");
-                  setSelectedBet(null);
-                  setLastNumber(null);
-                }}
-                className="flex-1 py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
-                style={{
-                  backgroundColor: "#2d1b4e",
-                  border: "2px dashed #f7a600",
-                  color: "#f7a600",
-                }}
-              >
-                <RotateCcw size={20} />
-                Reset
-              </button>
             </div>
           </div>
         </div>
