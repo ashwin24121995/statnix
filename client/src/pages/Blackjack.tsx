@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Volume2, VolumeX } from "lucide-react";
+import { RotateCcw, Volume2, VolumeX } from "lucide-react";
 
 /**
- * Blackjack Game Page - Casinous Template Design
- * Premium blackjack card game with dealer mechanics
+ * Blackjack Page - Premium Blackjack Game
+ * Realistic card dealing with smooth animations
  */
 
 interface Card {
@@ -14,18 +14,59 @@ interface Card {
   numValue: number;
 }
 
+const SUITS = ["♠", "♥", "♦", "♣"];
+const VALUES = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+const INITIAL_CREDITS = 1000;
+
 export default function Blackjack() {
-  const [balance, setBalance] = useState(1000);
-  const [bet, setBet] = useState(50);
+  const [credits, setCredits] = useState(INITIAL_CREDITS);
+  const [bet, setBet] = useState(10);
   const [gameStarted, setGameStarted] = useState(false);
   const [playerCards, setPlayerCards] = useState<Card[]>([]);
   const [dealerCards, setDealerCards] = useState<Card[]>([]);
-  const [message, setMessage] = useState("");
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [dealerRevealed, setDealerRevealed] = useState(false);
+  const [message, setMessage] = useState("Place your bet to start");
+  const [lastWin, setLastWin] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [cardAnimations, setCardAnimations] = useState<boolean[]>([]);
+  const audioContextRef = useRef<AudioContext | null>(null);
 
-  const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
-  const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+  useEffect(() => {
+    if (typeof window !== "undefined" && !audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+  }, []);
+
+  const playSound = (frequency: number, duration: number, type: "sine" | "square" = "sine") => {
+    if (isMuted || !audioContextRef.current) return;
+
+    const audioContext = audioContextRef.current;
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.frequency.value = frequency;
+    oscillator.type = type;
+
+    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + duration);
+  };
+
+  const playCardSound = () => {
+    playSound(500, 0.1, "sine");
+  };
+
+  const playWinSound = () => {
+    playSound(800, 0.15);
+    setTimeout(() => playSound(1200, 0.15), 150);
+    setTimeout(() => playSound(1600, 0.2), 300);
+  };
 
   const getCardNumValue = (value: string): number => {
     if (value === "A") return 11;
@@ -34,8 +75,8 @@ export default function Blackjack() {
   };
 
   const generateCard = (): Card => {
-    const suit = suits[Math.floor(Math.random() * suits.length)];
-    const value = values[Math.floor(Math.random() * values.length)];
+    const suit = SUITS[Math.floor(Math.random() * SUITS.length)];
+    const value = VALUES[Math.floor(Math.random() * VALUES.length)];
     return {
       suit,
       value,
@@ -55,343 +96,338 @@ export default function Blackjack() {
     return total;
   };
 
-  const playSound = (type: "deal" | "win" | "lose") => {
-    if (!soundEnabled) return;
-
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-
-    if (type === "deal") {
-      oscillator.frequency.value = 600;
-      gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.3);
-    } else if (type === "win") {
-      oscillator.frequency.value = 800;
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.8);
-    } else {
-      oscillator.frequency.value = 300;
-      gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.5);
-    }
-  };
-
   const startGame = () => {
-    if (bet > balance) {
-      setMessage("Insufficient balance");
+    if (credits < bet) {
+      setMessage("Insufficient credits");
       return;
     }
+
+    setCredits(credits - bet);
+    setGameStarted(true);
+    setGameOver(false);
+    setDealerRevealed(false);
+    setLastWin(0);
+    setMessage("Dealing cards...");
 
     const newPlayerCards = [generateCard(), generateCard()];
     const newDealerCards = [generateCard(), generateCard()];
 
     setPlayerCards(newPlayerCards);
     setDealerCards(newDealerCards);
-    setGameStarted(true);
-    setGameOver(false);
-    setMessage("");
-    playSound("deal");
+    setCardAnimations([true, true, true, true]);
+
+    playCardSound();
+
+    setTimeout(() => {
+      const playerTotal = calculateHand(newPlayerCards);
+      if (playerTotal === 21) {
+        setMessage("Blackjack! You win!");
+        setLastWin(Math.floor(bet * 2.5));
+        setCredits((prev) => prev + Math.floor(bet * 2.5));
+        setGameOver(true);
+        playWinSound();
+      } else {
+        setMessage("Hit or Stand?");
+      }
+    }, 1000);
   };
 
   const hit = () => {
-    const newCards = [...playerCards, generateCard()];
-    setPlayerCards(newCards);
-    playSound("deal");
+    if (!gameStarted || gameOver) return;
 
-    const playerTotal = calculateHand(newCards);
-    if (playerTotal > 21) {
+    const newCard = generateCard();
+    const newCards = [...playerCards, newCard];
+    setPlayerCards(newCards);
+    setCardAnimations([...cardAnimations, true]);
+    playCardSound();
+
+    const total = calculateHand(newCards);
+    if (total > 21) {
+      setMessage("Bust! You lose!");
       setGameOver(true);
-      setBalance(balance - bet);
-      setMessage("Bust! You went over 21. You lost.");
-      playSound("lose");
+    } else if (total === 21) {
+      setMessage("21! Stand or Hit?");
     }
   };
 
   const stand = () => {
+    if (!gameStarted || gameOver) return;
+
+    setDealerRevealed(true);
+    setMessage("Dealer's turn...");
+
     let newDealerCards = [...dealerCards];
-    let dealerTotal = calculateHand(newDealerCards);
+    let dealerTotal = calculateHand(dealerCards);
 
-    while (dealerTotal < 17) {
-      newDealerCards.push(generateCard());
-      dealerTotal = calculateHand(newDealerCards);
-    }
+    const dealerInterval = setInterval(() => {
+      if (dealerTotal < 17) {
+        dealerCards.push(generateCard());
+        dealerTotal = calculateHand(dealerCards);
+        setDealerCards([...dealerCards]);
+        playCardSound();
+      } else {
+        clearInterval(dealerInterval);
 
-    setDealerCards(newDealerCards);
+        const playerTotal = calculateHand(playerCards);
+        let result = "";
+        let winAmount = 0;
 
-    const playerTotal = calculateHand(playerCards);
-    const finalDealerTotal = calculateHand(newDealerCards);
+        if (dealerTotal > 21) {
+          result = "Dealer bust! You win!";
+          winAmount = bet * 2;
+        } else if (playerTotal > dealerTotal) {
+          result = "You win!";
+          winAmount = bet * 2;
+        } else if (dealerTotal > playerTotal) {
+          result = "Dealer wins!";
+          winAmount = 0;
+        } else {
+          result = "Push! It's a tie!";
+          winAmount = bet;
+        }
 
-    let result = "";
-    let winAmount = 0;
-
-    if (finalDealerTotal > 21) {
-      result = "Dealer bust! You won!";
-      winAmount = bet * 2;
-      playSound("win");
-    } else if (playerTotal > finalDealerTotal) {
-      result = "You won!";
-      winAmount = bet * 2;
-      playSound("win");
-    } else if (playerTotal === finalDealerTotal) {
-      result = "Push! It's a tie.";
-      winAmount = bet;
-      playSound("deal");
-    } else {
-      result = "Dealer won. You lost.";
-      winAmount = 0;
-      playSound("lose");
-    }
-
-    setMessage(result);
-    setBalance(balance - bet + winAmount);
-    setGameOver(true);
+        setMessage(result);
+        if (winAmount > 0) {
+          setLastWin(winAmount);
+          setCredits((prev) => prev + winAmount);
+          playWinSound();
+        }
+        setGameOver(true);
+      }
+    }, 1000);
   };
 
-  const reset = () => {
+  const resetGame = () => {
+    setGameStarted(false);
     setPlayerCards([]);
     setDealerCards([]);
-    setGameStarted(false);
-    setGameOver(false);
-    setMessage("");
+    setMessage("Place your bet to start");
+    setCardAnimations([]);
   };
 
-  const CardDisplay = ({ card }: { card: Card }) => (
-    <div
-      className="w-20 h-28 rounded-lg flex items-center justify-center font-bold text-lg"
-      style={{
-        backgroundColor: ["Hearts", "Diamonds"].includes(card.suit) ? "#fff" : "#1a0a2e",
-        color: ["Hearts", "Diamonds"].includes(card.suit) ? "#ef4444" : "#fff",
-        border: `2px solid ${["Hearts", "Diamonds"].includes(card.suit) ? "#ef4444" : "#fff"}`,
-      }}
-    >
-      <div className="text-center">
-        <div>{card.value}</div>
-        <div className="text-xs">{card.suit[0]}</div>
+  const CardComponent = ({ card, hidden = false, index = 0 }: { card: Card; hidden?: boolean; index?: number }) => {
+    const isRed = card.suit === "♥" || card.suit === "♦";
+
+    return (
+      <div
+        className="w-24 h-32 rounded-lg flex items-center justify-center font-bold text-2xl transition-all transform"
+        style={{
+          backgroundColor: hidden ? "#1a0a2e" : "#FFFFFF",
+          border: `3px solid ${isRed ? "#FF1493" : "#000000"}`,
+          color: isRed ? "#FF1493" : "#000000",
+          boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
+          animation: cardAnimations[index] ? "slideIn 0.5s ease-out" : "none",
+        }}
+      >
+        {hidden ? "?" : `${card.value}${card.suit}`}
       </div>
-    </div>
-  );
+    );
+  };
+
+  const playerTotal = calculateHand(playerCards);
+  const dealerTotal = calculateHand(dealerCards);
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#1a0a2e" }}>
       <Header />
 
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section
-          className="relative min-h-[40vh] flex items-center overflow-hidden"
-          style={{
-            backgroundImage: "url('/images/blackjack-game-bg.webp')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(26, 10, 46, 0.95), rgba(26, 10, 46, 0.7))" }} />
-          <div className="container relative z-10 py-16">
-            <h1 className="heading-casino text-5xl md:text-6xl text-white mb-4">
-              Premium <span style={{ color: "#f7a600" }}>Blackjack</span>
+      <style>{`
+        @keyframes slideIn {
+          from {
+            transform: translateX(-50px) rotateY(90deg);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0) rotateY(0deg);
+            opacity: 1;
+          }
+        }
+      `}</style>
+
+      <main className="flex-1 py-12">
+        <div className="container">
+          {/* Game Title */}
+          <div className="text-center mb-12">
+            <h1 className="text-5xl md:text-6xl mb-4" style={{ color: "#f7a600", fontFamily: "Poppins", fontWeight: 700, fontStyle: "italic" }}>
+              Premium Blackjack
             </h1>
-            <p className="text-gray-400 text-lg max-w-2xl">
-              Beat the dealer and reach 21. Strategy and luck combine for the ultimate card game.
-            </p>
+            <p className="text-gray-400 text-lg">Beat the dealer and win big</p>
           </div>
-        </section>
 
-        {/* Game Section */}
-        <section className="py-20" style={{ backgroundColor: "#1a0a2e" }}>
-          <div className="container">
-            <div className="card-casino p-8 max-w-4xl mx-auto">
-              {/* Dealer Hand */}
+          <div className="max-w-4xl mx-auto">
+            {/* Credits Display */}
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="p-4 rounded-lg" style={{ backgroundColor: "#2d1b4e", border: "2px dashed #f7a600" }}>
+                <p className="text-gray-400 text-sm mb-2">Total Credits</p>
+                <p className="text-3xl font-bold" style={{ color: "#f7a600" }}>{credits}</p>
+              </div>
+              <div className="p-4 rounded-lg" style={{ backgroundColor: "#2d1b4e", border: "2px dashed #f7a600" }}>
+                <p className="text-gray-400 text-sm mb-2">Last Win</p>
+                <p className="text-3xl font-bold" style={{ color: lastWin > 0 ? "#00FF00" : "#FF6B6B" }}>{lastWin}</p>
+              </div>
+            </div>
+
+            {/* Game Table */}
+            <div className="p-8 rounded-xl mb-8" style={{ backgroundColor: "#2d1b4e", border: "3px solid #f7a600", minHeight: "400px" }}>
+              {/* Dealer Section */}
               <div className="mb-12">
-                <h3 className="text-gray-400 mb-4 uppercase tracking-wider">Dealer Hand</h3>
-                <div className="flex gap-4 items-center">
-                  <div className="flex gap-2">
-                    {dealerCards.map((card, idx) => (
-                      <CardDisplay key={idx} card={card} />
-                    ))}
-                  </div>
-                  {gameStarted && dealerCards.length > 0 && (
-                    <div className="ml-4">
-                      <p className="text-gray-400 text-sm">Total</p>
-                      <p className="text-2xl font-bold" style={{ color: "#f7a600" }}>
-                        {gameOver ? calculateHand(dealerCards) : "?"}
-                      </p>
-                    </div>
-                  )}
+                <p className="text-gray-400 mb-4">Dealer's Hand</p>
+                <div className="flex gap-4 mb-2">
+                  {dealerCards.map((card, index) => (
+                    <CardComponent key={index} card={card} hidden={!dealerRevealed && index === 1} index={index} />
+                  ))}
                 </div>
+                {dealerRevealed && (
+                  <p className="text-lg font-semibold" style={{ color: "#f7a600" }}>
+                    Total: {dealerTotal}
+                  </p>
+                )}
               </div>
 
-              {/* Player Hand */}
-              <div className="mb-12 pb-12 border-b border-gray-700">
-                <h3 className="text-gray-400 mb-4 uppercase tracking-wider">Your Hand</h3>
-                <div className="flex gap-4 items-center">
-                  <div className="flex gap-2">
-                    {playerCards.map((card, idx) => (
-                      <CardDisplay key={idx} card={card} />
-                    ))}
-                  </div>
-                  {gameStarted && playerCards.length > 0 && (
-                    <div className="ml-4">
-                      <p className="text-gray-400 text-sm">Total</p>
-                      <p className="text-2xl font-bold" style={{ color: "#f7a600" }}>
-                        {calculateHand(playerCards)}
-                      </p>
-                    </div>
-                  )}
+              {/* Player Section */}
+              <div>
+                <p className="text-gray-400 mb-4">Your Hand</p>
+                <div className="flex gap-4 mb-4">
+                  {playerCards.map((card, index) => (
+                    <CardComponent key={index} card={card} index={index + 2} />
+                  ))}
                 </div>
+                <p className="text-lg font-semibold" style={{ color: playerTotal > 21 ? "#FF6B6B" : "#00FF00" }}>
+                  Total: {playerTotal}
+                </p>
               </div>
+            </div>
 
-              {/* Controls */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                {/* Left: Bet and Balance */}
-                <div>
-                  <div className="mb-6">
-                    <p className="text-gray-400 mb-2">Current Balance</p>
-                    <p className="text-3xl font-bold" style={{ color: "#f7a600" }}>
-                      ${balance}
-                    </p>
-                  </div>
+            {/* Status */}
+            <div className="text-center mb-8">
+              <p className="text-lg font-semibold" style={{ color: message.includes("win") ? "#00FF00" : message.includes("lose") || message.includes("Bust") ? "#FF6B6B" : "#f7a600" }}>
+                {message}
+              </p>
+            </div>
 
-                  {!gameStarted && (
-                    <div>
-                      <label className="text-gray-400 block mb-3">Bet Amount: ${bet}</label>
-                      <input
-                        type="range"
-                        min="10"
-                        max={balance}
-                        step="10"
-                        value={bet}
-                        onChange={(e) => setBet(Number(e.target.value))}
-                        className="w-full mb-3"
-                        style={{ accentColor: "#f7a600" }}
-                      />
-                      <div className="flex gap-2">
-                        {[10, 50, 100, 500].map((amount) => (
-                          <button
-                            key={amount}
-                            onClick={() => setBet(Math.min(amount, balance))}
-                            className="flex-1 py-2 rounded-lg text-sm transition-all"
-                            style={{
-                              backgroundColor: bet === amount ? "#f7a600" : "rgba(247, 166, 0, 0.2)",
-                              color: bet === amount ? "#1a0a2e" : "#f7a600",
-                            }}
-                          >
-                            ${amount}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Right: Game Actions */}
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-700">
-                    <span className="text-gray-400">Sound</span>
+            {/* Bet Controls */}
+            {!gameStarted && (
+              <div className="mb-8">
+                <p className="text-gray-400 mb-4">Select Bet Amount</p>
+                <div className="grid grid-cols-4 gap-2 mb-4">
+                  {[10, 25, 50, 100].map((amount) => (
                     <button
-                      onClick={() => setSoundEnabled(!soundEnabled)}
-                      className="p-2 rounded-lg transition-colors"
+                      key={amount}
+                      onClick={() => setBet(amount)}
+                      disabled={amount > credits}
+                      className="py-3 rounded-lg font-semibold transition-all disabled:opacity-50"
                       style={{
-                        backgroundColor: soundEnabled ? "rgba(247, 166, 0, 0.2)" : "rgba(100, 100, 100, 0.2)",
+                        backgroundColor: bet === amount ? "#f7a600" : "#1a0a2e",
+                        color: bet === amount ? "#1a0a2e" : "#f7a600",
+                        border: `2px ${bet === amount ? "solid" : "dashed"} #f7a600`,
                       }}
                     >
-                      {soundEnabled ? (
-                        <Volume2 className="w-5 h-5" style={{ color: "#f7a600" }} />
-                      ) : (
-                        <VolumeX className="w-5 h-5 text-gray-500" />
-                      )}
+                      {amount}
                     </button>
-                  </div>
-
-                  {!gameStarted ? (
-                    <button
-                      onClick={startGame}
-                      className="btn-casino text-lg py-4"
-                    >
-                      Deal Cards
-                    </button>
-                  ) : (
-                    <>
-                      <button
-                        onClick={hit}
-                        disabled={gameOver}
-                        className="btn-casino text-lg py-3 disabled:opacity-50"
-                      >
-                        Hit
-                      </button>
-                      <button
-                        onClick={stand}
-                        disabled={gameOver}
-                        className="btn-casino-outline text-lg py-3 disabled:opacity-50"
-                      >
-                        Stand
-                      </button>
-                      {gameOver && (
-                        <button
-                          onClick={reset}
-                          className="btn-casino text-lg py-3"
-                        >
-                          New Game
-                        </button>
-                      )}
-                    </>
-                  )}
+                  ))}
                 </div>
               </div>
+            )}
 
-              {/* Message */}
-              {message && (
-                <div
-                  className="p-4 rounded-lg text-center font-semibold text-lg"
+            {/* Action Buttons */}
+            <div className="flex gap-4 mb-6">
+              {!gameStarted ? (
+                <button
+                  onClick={startGame}
+                  disabled={credits < bet}
+                  className="flex-1 py-4 rounded-lg font-bold text-lg transition-all transform hover:scale-105 disabled:opacity-50"
                   style={{
-                    backgroundColor: message.includes("won") ? "rgba(34, 197, 94, 0.2)" : "rgba(239, 68, 68, 0.2)",
-                    color: message.includes("won") ? "#22c55e" : "#ef4444",
+                    backgroundColor: "#f7a600",
+                    color: "#1a0a2e",
                   }}
                 >
-                  {message}
-                </div>
+                  DEAL
+                </button>
+              ) : !gameOver ? (
+                <>
+                  <button
+                    onClick={hit}
+                    className="flex-1 py-4 rounded-lg font-bold text-lg transition-all"
+                    style={{
+                      backgroundColor: "#f7a600",
+                      color: "#1a0a2e",
+                    }}
+                  >
+                    HIT
+                  </button>
+                  <button
+                    onClick={stand}
+                    className="flex-1 py-4 rounded-lg font-bold text-lg transition-all"
+                    style={{
+                      backgroundColor: "#2d1b4e",
+                      color: "#f7a600",
+                      border: "2px solid #f7a600",
+                    }}
+                  >
+                    STAND
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={resetGame}
+                  className="flex-1 py-4 rounded-lg font-bold text-lg transition-all"
+                  style={{
+                    backgroundColor: "#f7a600",
+                    color: "#1a0a2e",
+                  }}
+                >
+                  NEW GAME
+                </button>
               )}
             </div>
-          </div>
-        </section>
 
-        {/* Rules Section */}
-        <section className="py-16" style={{ backgroundColor: "#2d1b4e" }}>
-          <div className="container">
-            <h2 className="heading-casino text-3xl md:text-4xl text-white mb-8 text-center">
-              Game <span style={{ color: "#f7a600" }}>Rules</span>
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="card-casino p-6">
-                <h3 className="font-display font-bold text-lg text-white mb-3">Objective</h3>
-                <p className="text-gray-400 text-sm">
-                  Get a hand value closer to 21 than the dealer without going over 21.
-                </p>
-              </div>
-              <div className="card-casino p-6">
-                <h3 className="font-display font-bold text-lg text-white mb-3">Card Values</h3>
-                <p className="text-gray-400 text-sm">
-                  Number cards are worth their face value. Face cards are worth 10. Aces are worth 1 or 11.
-                </p>
-              </div>
-              <div className="card-casino p-6">
-                <h3 className="font-display font-bold text-lg text-white mb-3">Payout</h3>
-                <p className="text-gray-400 text-sm">
-                  Win: 2x your bet. Tie (Push): Get your bet back. Lose: Lose your bet.
-                </p>
-              </div>
+            {/* Controls */}
+            <div className="flex gap-4">
+              <button
+                onClick={() => setIsMuted(!isMuted)}
+                className="flex-1 py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
+                style={{
+                  backgroundColor: "#2d1b4e",
+                  border: "2px dashed #f7a600",
+                  color: "#f7a600",
+                }}
+              >
+                {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                {isMuted ? "Muted" : "Sound On"}
+              </button>
+
+              <button
+                onClick={() => {
+                  setCredits(INITIAL_CREDITS);
+                  setLastWin(0);
+                  resetGame();
+                }}
+                className="flex-1 py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
+                style={{
+                  backgroundColor: "#2d1b4e",
+                  border: "2px dashed #f7a600",
+                  color: "#f7a600",
+                }}
+              >
+                <RotateCcw size={20} />
+                Reset
+              </button>
+            </div>
+
+            {/* Rules */}
+            <div className="mt-12 p-6 rounded-lg" style={{ backgroundColor: "#2d1b4e", border: "2px dashed #f7a600" }}>
+              <h3 className="text-xl font-bold mb-4" style={{ color: "#f7a600" }}>Game Rules</h3>
+              <ul className="text-gray-400 space-y-2 text-sm">
+                <li>Get closer to 21 than the dealer without going over</li>
+                <li>Face cards (J, Q, K) are worth 10 points</li>
+                <li>Aces are worth 11 or 1 point (automatic)</li>
+                <li>Blackjack (21 on first two cards) pays 2.5x your bet</li>
+                <li>Regular win pays 2x your bet</li>
+                <li>Push (tie) returns your bet</li>
+              </ul>
             </div>
           </div>
-        </section>
+        </div>
       </main>
 
       <Footer />
