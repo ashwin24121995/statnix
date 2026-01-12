@@ -24,7 +24,7 @@ export default function Disclaimer() {
                   General Disclaimer
                 </h2>
                 <p>
-                  The information provided on the Play By Stats website is for informational purposes only. While we strive to provide accurate and up-to-date information, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.
+                  The information provided on the Statnix website is for informational purposes only. While we strive to provide accurate and up-to-date information, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.
                 </p>
               </div>
 
@@ -33,7 +33,7 @@ export default function Disclaimer() {
                   Limitation of Liability
                 </h2>
                 <p>
-                  In no event will Play By Stats, its directors, employees, or agents be liable to you or any third party for any direct, indirect, incidental, special, punitive, or consequential damages whatsoever resulting from any (i) errors, mistakes, or inaccuracies of content, (ii) personal injury or property damage of any nature whatsoever, (iii) any unauthorized access to or use of our servers and any and all personal information stored therein, (iv) any interruption or cessation of transmission to or from our website, or (iv) any bugs, viruses, trojan horses, or the like which may be transmitted to or through our website by any third party.
+                  In no event will Statnix, its directors, employees, or agents be liable to you or any third party for any direct, indirect, incidental, special, punitive, or consequential damages whatsoever resulting from any (i) errors, mistakes, or inaccuracies of content, (ii) personal injury or property damage of any nature whatsoever, (iii) any unauthorized access to or use of our servers and any and all personal information stored therein, (iv) any interruption or cessation of transmission to or from our website, or (iv) any bugs, viruses, trojan horses, or the like which may be transmitted to or through our website by any third party.
                 </p>
               </div>
 
@@ -42,7 +42,7 @@ export default function Disclaimer() {
                   External Links Disclaimer
                 </h2>
                 <p>
-                  The Play By Stats website may contain links to external websites that are not provided or maintained by or in any way affiliated with Play By Stats. Please note that Play By Stats does not endorse the contents of these external websites. The inclusion of any link does not imply endorsement by Play By Stats of the site. Use of any such linked website is at the user's own risk.
+                  The Statnix website may contain links to external websites that are not provided or maintained by or in any way affiliated with Statnix. Please note that Statnix does not endorse the contents of these external websites. The inclusion of any link does not imply endorsement by Statnix of the site. Use of any such linked website is at the user's own risk.
                 </p>
               </div>
 
@@ -60,7 +60,7 @@ export default function Disclaimer() {
                   Affiliate Links Disclaimer
                 </h2>
                 <p>
-                  This website may contain affiliate links. Play By Stats may earn a commission from qualifying purchases made through these links. However, this does not affect the price you pay, and we only recommend products and services that we believe are of value to our users.
+                  This website may contain affiliate links. Statnix may earn a commission from qualifying purchases made through these links. However, this does not affect the price you pay, and we only recommend products and services that we believe are of value to our users.
                 </p>
               </div>
 
@@ -78,7 +78,7 @@ export default function Disclaimer() {
                   No Warranty
                 </h2>
                 <p>
-                  The materials on the Play By Stats website are provided on an 'as is' basis. Play By Stats makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                  The materials on the Statnix website are provided on an 'as is' basis. Statnix makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
                 </p>
               </div>
 
@@ -90,7 +90,7 @@ export default function Disclaimer() {
                   If you have any questions about this Disclaimer, please contact us at:
                 </p>
                 <p className="mt-4">
-                  <strong className="text-white">Email:</strong> support@playbystats.com<br />
+                  <strong className="text-white">Email:</strong> support@statnix.com<br />
                   <strong className="text-white">Address:</strong> C/O N K SHARMA SEC 9 TYPE, BT QR NO 463, HEC, Dhurwa, Ranchi, Ranchi-834004, Jharkhand
                 </p>
               </div>

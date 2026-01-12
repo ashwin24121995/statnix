@@ -159,7 +159,7 @@ export default function Home() {
                   <span className="text-white">Casino</span>
                 </h2>
                 <p className="text-gray-400 mb-8 leading-relaxed">
-                  Play By Stats offers a premium social gaming experience with no real money involved. Enjoy authentic casino entertainment in a safe, secure environment designed for pure fun and excitement.
+                  Statnix offers a premium social gaming experience with no real money involved. Enjoy authentic casino entertainment in a safe, secure environment designed for pure fun and excitement.
                 </p>
                 <Link href="/play">
                   <button className="btn-casino">
@@ -202,7 +202,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { step: "01", title: "Visit Our Platform", desc: "Access Play By Stats from any device with a web browser." },
+                { step: "01", title: "Visit Our Platform", desc: "Access Statnix from any device with a web browser." },
                 { step: "02", title: "Choose Your Game", desc: "Select from our collection of premium casino games." },
                 { step: "03", title: "Play & Enjoy", desc: "Start playing instantly and experience the thrill!" },
               ].map((item, idx) => (
@@ -223,8 +223,16 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20" style={{ background: 'linear-gradient(to right, rgba(247, 166, 0, 0.1), #2d1b4e, rgba(247, 166, 0, 0.1))' }}>
-          <div className="container text-center">
+        <section
+          className="relative py-20 overflow-hidden"
+          style={{
+            backgroundImage: "url('/images/why-play-bg.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(26, 10, 46, 0.95), rgba(26, 10, 46, 0.9), rgba(26, 10, 46, 0.95))' }} />
+          <div className="container relative z-10 text-center">
             <h2 className="heading-casino text-4xl md:text-5xl mb-6">
               <span style={{ color: '#f7a600' }}>Ready to </span>
               <span className="text-white">Play?</span>

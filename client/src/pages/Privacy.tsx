@@ -24,7 +24,7 @@ export default function Privacy() {
                   1. Introduction
                 </h2>
                 <p>
-                  Play By Stats ("we," "us," "our," or "Company") operates the playbystats.com website (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
+                  Statnix ("we," "us," "our," or "Company") operates the playbystats.com website (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
                 </p>
               </div>
 
@@ -50,7 +50,7 @@ export default function Privacy() {
                   3. Use of Data
                 </h2>
                 <p>
-                  Play By Stats uses the collected data for various purposes:
+                  Statnix uses the collected data for various purposes:
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4 mt-2">
                   <li>To provide and maintain our Service</li>
@@ -89,7 +89,7 @@ export default function Privacy() {
                   If you have any questions about this Privacy Policy, please contact us at:
                 </p>
                 <p className="mt-4">
-                  <strong className="text-white">Email:</strong> support@playbystats.com<br />
+                  <strong className="text-white">Email:</strong> support@statnix.com<br />
                   <strong className="text-white">Address:</strong> C/O N K SHARMA SEC 9 TYPE, BT QR NO 463, HEC, Dhurwa, Ranchi, Ranchi-834004, Jharkhand
                 </p>
               </div>

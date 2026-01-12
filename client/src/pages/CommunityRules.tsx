@@ -74,7 +74,7 @@ export default function CommunityRules() {
                 },
                 {
                   title: "Reporting Violations",
-                  description: "If you witness a violation of these rules, report it immediately to our moderation team. Use the in-game reporting system or contact support@playbystats.com with details and evidence.",
+                  description: "If you witness a violation of these rules, report it immediately to our moderation team. Use the in-game reporting system or contact support@statnix.com with details and evidence.",
                   icon: "🚨",
                 },
               ].map((rule, idx) => (
@@ -107,7 +107,7 @@ export default function CommunityRules() {
                   <strong className="text-white">Progressive Discipline:</strong> We typically follow a progressive discipline approach, starting with warnings for minor violations and escalating to temporary or permanent bans for serious or repeated offenses.
                 </p>
                 <p>
-                  <strong className="text-white">Appeals:</strong> If you believe your account has been unfairly suspended or banned, you can appeal the decision by contacting our support team at support@playbystats.com with details about your case.
+                  <strong className="text-white">Appeals:</strong> If you believe your account has been unfairly suspended or banned, you can appeal the decision by contacting our support team at support@statnix.com with details about your case.
                 </p>
               </div>
             </div>
@@ -121,7 +121,7 @@ export default function CommunityRules() {
                 If you have questions about these community rules or need to report a violation, please contact our moderation team:
               </p>
               <p className="text-white">
-                <strong>Email:</strong> support@playbystats.com<br />
+                <strong>Email:</strong> support@statnix.com<br />
                 <strong>In-Game Report:</strong> Use the report button on any player profile or message
               </p>
             </div>

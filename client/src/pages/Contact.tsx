@@ -93,8 +93,8 @@ export default function Contact() {
                           Email
                         </h3>
                         <p className="text-gray-400">
-                          <a href="mailto:support@playbystats.com" className="hover:text-[#f7a600] transition-colors">
-                            support@playbystats.com
+                          <a href="mailto:support@statnix.com" className="hover:text-[#f7a600] transition-colors">
+                            support@statnix.com
                           </a>
                         </p>
                       </div>
@@ -226,11 +226,11 @@ export default function Contact() {
                 {[
                   {
                     q: "How do I report a bug or issue?",
-                    a: "Please use the contact form above or email us at support@playbystats.com with details about the issue. Our team will investigate and get back to you promptly.",
+                    a: "Please use the contact form above or email us at support@statnix.com with details about the issue. Our team will investigate and get back to you promptly.",
                   },
                   {
                     q: "What should I do if I encounter inappropriate behavior?",
-                    a: "Report it immediately through the in-game reporting system or contact our moderation team at support@playbystats.com with details and screenshots if possible.",
+                    a: "Report it immediately through the in-game reporting system or contact our moderation team at support@statnix.com with details and screenshots if possible.",
                   },
                   {
                     q: "How can I provide feedback or suggestions?",

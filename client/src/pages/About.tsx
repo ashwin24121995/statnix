@@ -26,7 +26,7 @@ export default function About() {
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(26, 10, 46, 0.95), rgba(26, 10, 46, 0.7))' }} />
           <div className="container relative z-10 py-16">
             <h1 className="heading-casino text-5xl md:text-6xl mb-6 text-white">
-              About <span style={{ color: '#f7a600' }}>Play By Stats</span>
+              About <span style={{ color: '#f7a600' }}>Statnix</span>
             </h1>
             <p className="text-xl text-gray-400 max-w-3xl">
               We're dedicated to creating a safe, engaging, and fair gaming platform where players can enjoy entertainment without worry.
@@ -180,7 +180,7 @@ export default function About() {
 
             <div className="space-y-6 text-gray-400 leading-relaxed">
               <p>
-                At Play By Stats, we're committed to providing a gaming experience that prioritizes fair play, user safety, privacy, and satisfaction. We understand that trust is earned through consistent, transparent actions.
+                At Statnix, we're committed to providing a gaming experience that prioritizes fair play, user safety, privacy, and satisfaction. We understand that trust is earned through consistent, transparent actions.
               </p>
 
               <p>
