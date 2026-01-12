@@ -7,108 +7,155 @@ export default function Terms() {
       <Header />
 
       <main className="flex-1">
-        <section className="py-16" style={{ backgroundColor: '#2d1b4e', borderBottom: '1px solid rgba(247, 166, 0, 0.3)' }}>
-          <div className="container">
-            <h1 className="heading-casino text-5xl md:text-6xl mb-6 text-white">
+        <section
+          className="relative min-h-[40vh] flex items-center overflow-hidden"
+          style={{
+            backgroundImage: "url('/images/terms-legal-bg.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed"
+          }}
+        >
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(26, 10, 46, 0.95), rgba(26, 10, 46, 0.8))' }} />
+          <div className="container relative z-10 py-16">
+            <h1 className="heading-casino text-5xl md:text-6xl mb-6 text-white font-display italic">
               Terms & <span style={{ color: '#f7a600' }}>Conditions</span>
             </h1>
-            <p className="text-gray-400">Last updated: January 2026</p>
+            <p className="text-xl text-gray-300">Please read our terms carefully before using STATNIX</p>
+            <p className="text-gray-400 mt-2">Last updated: January 2026</p>
           </div>
         </section>
 
         <section className="py-16" style={{ backgroundColor: '#1a0a2e' }}>
-          <div className="container max-w-3xl">
+          <div className="container max-w-4xl">
             <div className="space-y-8 text-gray-400">
-              <div className="card-casino p-6">
-                <h2 className="font-display font-bold text-2xl text-white mb-4">
-                  1. Agreement to Terms
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  1. Acceptance of Terms
                 </h2>
-                <p>
-                  By accessing and using the playbystats.com website and service, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+                <p className="leading-relaxed">
+                  By accessing and using STATNIX, you accept and agree to be bound by these Terms & Conditions. If you do not agree, please do not use this service. We reserve the right to modify these terms at any time with notice posted on the website.
                 </p>
               </div>
 
-              <div className="card-casino p-6">
-                <h2 className="font-display font-bold text-2xl text-white mb-4">
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
                   2. Use License
                 </h2>
-                <p>
-                  Permission is granted to temporarily download one copy of the materials (information or software) on STATNIX's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+                <p className="leading-relaxed mb-4">
+                  Permission is granted to use STATNIX for personal, non-commercial entertainment only. You may not:
                 </p>
-                <ul className="list-disc list-inside space-y-2 ml-4 mt-2">
-                  <li>Modifying or copying the materials</li>
-                  <li>Using the materials for any commercial purpose or for any public display</li>
-                  <li>Attempting to decompile or reverse engineer any software contained on the website</li>
-                  <li>Removing any copyright or other proprietary notations from the materials</li>
-                  <li>Transferring the materials to another person or "mirroring" the materials on any other server</li>
+                <ul className="space-y-2 ml-4">
+                  <li>Modify, copy, or distribute materials</li>
+                  <li>Use materials for commercial purposes</li>
+                  <li>Reverse engineer or decompile software</li>
+                  <li>Remove copyright or proprietary notices</li>
+                  <li>Violate applicable laws</li>
                 </ul>
               </div>
 
-              <div className="card-casino p-6">
-                <h2 className="font-display font-bold text-2xl text-white mb-4">
-                  3. Disclaimer
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  3. Account Registration
                 </h2>
-                <p>
-                  The materials on STATNIX's website are provided on an 'as is' basis. STATNIX makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                <p className="leading-relaxed mb-4">
+                  To use STATNIX, you must register an account and agree to:
+                </p>
+                <ul className="space-y-2 ml-4">
+                  <li>Be at least 18 years of age</li>
+                  <li>Provide accurate and complete information</li>
+                  <li>Maintain password confidentiality</li>
+                  <li>Accept responsibility for account activities</li>
+                  <li>Report unauthorized access immediately</li>
+                </ul>
+              </div>
+
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  4. Free-to-Play Gaming
+                </h2>
+                <p className="leading-relaxed mb-4">
+                  STATNIX is a free-to-play platform with no real money involved. You understand that:
+                </p>
+                <ul className="space-y-2 ml-4">
+                  <li>No real currency can be used or gained</li>
+                  <li>All achievements are for entertainment only</li>
+                  <li>No real-world financial activities result from gameplay</li>
+                  <li>This is a social gaming platform</li>
+                </ul>
+              </div>
+
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  5. Prohibited Conduct
+                </h2>
+                <p className="leading-relaxed mb-4">
+                  You agree not to:
+                </p>
+                <ul className="space-y-2 ml-4">
+                  <li>Harass, abuse, or threaten other players</li>
+                  <li>Cheat, hack, or exploit game mechanics</li>
+                  <li>Share account credentials</li>
+                  <li>Post offensive or illegal content</li>
+                  <li>Attempt unauthorized access</li>
+                  <li>Engage in spam or phishing</li>
+                  <li>Violate intellectual property rights</li>
+                </ul>
+              </div>
+
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  6. Intellectual Property
+                </h2>
+                <p className="leading-relaxed">
+                  All content on STATNIX is protected by copyright and owned by CC INNOVATIONS (OPC) PRIVATE LIMITED. You may not reproduce, distribute, or transmit any content without permission.
                 </p>
               </div>
 
-              <div className="card-casino p-6">
-                <h2 className="font-display font-bold text-2xl text-white mb-4">
-                  4. Limitations
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  7. Limitation of Liability
                 </h2>
-                <p>
-                  In no event shall STATNIX or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on STATNIX's website.
+                <p className="leading-relaxed">
+                  STATNIX is provided "as is" without warranties. We shall not be liable for indirect, incidental, or consequential damages from your use or inability to use the service.
                 </p>
               </div>
 
-              <div className="card-casino p-6">
-                <h2 className="font-display font-bold text-2xl text-white mb-4">
-                  5. Accuracy of Materials
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  8. Termination
                 </h2>
-                <p>
-                  The materials appearing on STATNIX's website could include technical, typographical, or photographic errors. STATNIX does not warrant that any of the materials on its website are accurate, complete, or current. STATNIX may make changes to the materials contained on its website at any time without notice.
+                <p className="leading-relaxed">
+                  We reserve the right to terminate your account immediately for any breach of these terms or prohibited conduct without prior notice or liability.
                 </p>
               </div>
 
-              <div className="card-casino p-6">
-                <h2 className="font-display font-bold text-2xl text-white mb-4">
-                  6. Links
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  9. Service Modifications
                 </h2>
-                <p>
-                  STATNIX has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by STATNIX of the site. Use of any such linked website is at the user's own risk.
+                <p className="leading-relaxed">
+                  We reserve the right to modify or discontinue STATNIX without notice. We shall not be liable for any modification or discontinuance.
                 </p>
               </div>
 
-              <div className="card-casino p-6">
-                <h2 className="font-display font-bold text-2xl text-white mb-4">
-                  7. Modifications
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  10. Governing Law
                 </h2>
-                <p>
-                  STATNIX may revise these terms of service for its website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service.
+                <p className="leading-relaxed">
+                  These Terms are governed by Indian law. You submit to the exclusive jurisdiction of courts in Ranchi, Jharkhand.
                 </p>
               </div>
 
-              <div className="card-casino p-6">
-                <h2 className="font-display font-bold text-2xl text-white mb-4">
-                  8. Governing Law
+              <div className="card-casino p-8">
+                <h2 className="heading-casino font-bold text-2xl text-white mb-4 font-display italic">
+                  11. Contact Us
                 </h2>
-                <p>
-                  These terms and conditions are governed by and construed in accordance with the laws of India, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
-                </p>
-              </div>
-
-              <div className="card-casino p-6">
-                <h2 className="font-display font-bold text-2xl text-white mb-4">
-                  9. Contact Information
-                </h2>
-                <p>
-                  If you have any questions about these Terms and Conditions, please contact us at:
-                </p>
-                <p className="mt-4">
-                  <strong className="text-white">Email:</strong> support@statnix.com<br />
-                  <strong className="text-white">Address:</strong> C/O N K SHARMA SEC 9 TYPE, BT QR NO 463, HEC, Dhurwa, Ranchi, Ranchi-834004, Jharkhand
-                </p>
+                <p className="leading-relaxed mb-2">For questions about these Terms & Conditions:</p>
+                <p>support@statnix.com</p>
+                <p>CC INNOVATIONS (OPC) PRIVATE LIMITED</p>
+                <p>C/O N K SHARMA, SEC 9 TYPE, BT QR NO 463, HEC, Dhurwa, Ranchi - 834004, Jharkhand, India</p>
               </div>
             </div>
           </div>
