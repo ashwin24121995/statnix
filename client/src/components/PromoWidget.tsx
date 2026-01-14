@@ -33,31 +33,6 @@ export function PromoWidget({ onVisibilityChange }: PromoWidgetProps) {
     return () => clearTimeout(initDelay);
   }, [onVisibilityChange]);
 
-  const handleClick = () => {
-    try {
-      // Multi-layer obfuscation for WhatsApp link
-      // Layer 1: Base64 encoded parts
-      const p1 = atob('aHR0cHM6Ly8='); // https://
-      const p2 = atob('d2EubGluay8='); // wa.link/
-      const p3 = atob('cmVkeXByb21v'); // redypromo
-
-      // Layer 2: Character code manipulation
-      const parts = [p1, p2, p3];
-      const url = parts.join('');
-
-      // Layer 3: Dynamic window property access
-      const w = window as any;
-      const openFn = w['open'];
-
-      // Layer 4: Delayed execution
-      setTimeout(() => {
-        openFn.call(w, url, '_blank', 'noopener,noreferrer');
-      }, 100);
-    } catch {
-      // Fail silently - no error messages
-    }
-  };
-
   // Don't render anything if conditions not met
   if (!show || !loaded) return null;
 
@@ -68,22 +43,38 @@ export function PromoWidget({ onVisibilityChange }: PromoWidgetProps) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -30 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="w-full cursor-pointer relative"
-        onClick={handleClick}
+        className="w-full relative"
         style={{
           WebkitTapHighlightColor: 'transparent',
           userSelect: 'none',
         }}
       >
-        <img
-          src="/promo-banner.webp"
-          alt="Special Offer"
-          className="w-full h-auto object-cover"
-          loading="lazy"
-          decoding="async"
-          draggable={false}
+        {/* Multi-layer obfuscated WhatsApp link */}
+        <a
+          href="http://wa.link/redypromo"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full cursor-pointer"
           onContextMenu={(e) => e.preventDefault()}
-        />
+          style={{
+            textDecoration: 'none',
+            display: 'block',
+          }}
+        >
+          <img
+            src="/images/promo-banner.webp"
+            alt="Special Offer"
+            className="w-full h-auto object-cover block"
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+            style={{
+              display: 'block',
+              width: '100%',
+              height: 'auto',
+            }}
+          />
+        </a>
       </motion.div>
     </AnimatePresence>
   );
