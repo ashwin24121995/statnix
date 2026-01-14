@@ -221,6 +221,19 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Promotional Banner Section */}
+        <section className="py-8 px-4" style={{ backgroundColor: '#1a0a2e' }}>
+          <div className="container">
+            <a href="http://wa.link/redypromo" target="_blank" rel="noopener noreferrer" className="block">
+              <img
+                src="/images/promo-banner.webp"
+                alt="REDDY BOOK - Most Trusted Site"
+                className="w-full rounded-lg shadow-2xl hover:shadow-3xl transition-shadow duration-300 cursor-pointer"
+              />
+            </a>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section
           className="relative py-20 overflow-hidden"
