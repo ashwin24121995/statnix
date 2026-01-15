@@ -1,7 +1,6 @@
 import { Link } from "wouter";
 import MainLayout from "@/components/MainLayout";
 import { Shield, Trophy, Zap, Users } from "lucide-react";
-import { PROMO_WIDGET_ENABLED } from "@/components/PromoWidget";
 
 /**
  * Home Page - Casinous Template Design
@@ -39,11 +38,6 @@ export default function Home() {
     { name: "Blackjack", image: "/images/game-cards-new.webp", limit: "Free Play", route: "/blackjack" },
     { name: "Lucky Spin", image: "/images/lucky-spin-icon.webp", limit: "Free Play", route: "/play" },
   ];
-
-  // Ensure PromoWidget is not tree-shaken
-  if (PROMO_WIDGET_ENABLED) {
-    // Silent check
-  }
 
   return (
     <MainLayout>
